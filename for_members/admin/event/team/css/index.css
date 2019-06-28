@@ -1,0 +1,30 @@
+select{
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+#teams{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.team{
+  max-width: 400px;
+  margin-bottom: 15px;
+}
+.male{
+  color: #00f;
+}
+.female{
+  color: #f00;
+}
+.team_leader:before{
+  content: "#";
+  font-weight: bold;
+  color: #000;
+}

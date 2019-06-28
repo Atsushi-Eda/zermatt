@@ -1,0 +1,14 @@
+th.headerSortUp:after{
+  content: '>';
+  display: inline-block;
+  margin-left: 5px;
+  -webkit-transform:rotate(90deg);
+  transform:rotate(90deg);
+}
+th.headerSortDown:after{
+  content: '<';
+  display: inline-block;
+  margin-left: 5px;
+  -webkit-transform:rotate(90deg);
+  transform:rotate(90deg);
+}

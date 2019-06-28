@@ -1,0 +1,10 @@
+#tablewrap{
+  width: 100%;
+  overflow: scroll;
+}
+th{
+  width: 60px;
+}
+tr th:first-child{
+  width: 100px;
+}

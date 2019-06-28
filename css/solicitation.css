@@ -1,0 +1,40 @@
+header{
+  background: rgb(0, 58, 255);
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+}
+h1, h2 {
+  font-size: 120%;
+}
+h1 a{
+  color: #fff;
+  text-decoration: none;
+}
+body{
+  padding-top: 60px;
+}
+.content{
+  padding: 10px;
+  margin: 10px 0;
+}
+.schedule {
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  background: #fafafa;
+}
+.schedule_title {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.content dt{
+  margin-top: 10px;
+}
+.content dl{
+  padding: 5px 10px;
+}

@@ -1,0 +1,13 @@
+#private_car_flag:not(.required),
+#private_car:not(.required),
+#car_rental:not(.required),
+#racket:not(.required),
+#ball:not(.required),
+#date:not(.required){
+  display: none;
+}
+:not(.free) > #note_free,
+:not(.absent) > #note_absent,
+:not(.undecided) > #note_undecided{
+  display: none;
+}

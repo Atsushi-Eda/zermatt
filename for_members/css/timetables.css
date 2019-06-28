@@ -1,0 +1,19 @@
+th, td{
+  border: 1px solid #eee;
+  text-align: center;
+  height: 45px;
+  padding: 0px;
+}
+input[type="checkbox"]{
+  display: none;
+}
+label, span{
+  height: 100%;
+  display: block;
+}
+input[type="checkbox"]:checked + span{
+  background-image: url("../img/pen.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}

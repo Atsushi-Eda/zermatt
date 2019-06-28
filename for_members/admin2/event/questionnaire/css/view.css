@@ -1,0 +1,34 @@
+#table_wrap{
+  width: 100%;
+  overflow: auto;
+}
+#result table{
+  min-width: 100%;
+}
+th, td {
+  border: 1px solid #eee;
+  text-align: center;
+  height: 45px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+th:nth-child(1){
+  width: 100px;
+}
+th.col3{
+  width: 180px;
+}
+th.col4{
+  width: 240px;
+}
+th.col5{
+  width: 300px;
+}
+tbody tr:nth-child(2n-1) {
+  background: #eee;
+}
+select{
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}

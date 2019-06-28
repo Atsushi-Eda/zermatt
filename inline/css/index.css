@@ -1,0 +1,62 @@
+h1{
+  padding: 20px 10px 10px;
+  font-size: 200%;
+}
+h2{
+  padding: 10px 0;
+  font-size: 150%;
+}
+h3{
+  padding-bottom: 10px;
+  font-size: 120%
+}
+dd{
+  padding-bottom: 10px;
+}
+iframe{
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  max-height: 50vw;
+}
+.inline_step{
+  padding: 10px 10px 0;
+}
+.inline_menus{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.inline_menus:before,
+.inline_menus:after{
+  content: '';
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  order: 1;
+}
+.inline_menu{
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, .3);
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+#step_table{
+  padding: 10px;
+  text-align: center;
+}
+#step_table img{
+  max-width: 100%;
+}
+.purpose{
+  padding-bottom: 10px;
+}

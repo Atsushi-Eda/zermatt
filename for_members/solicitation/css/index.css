@@ -1,0 +1,49 @@
+.schedule{
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  background: #fafafa;
+}
+.schedule_title{
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.cnt_male a{
+  color: #00f;
+}
+.cnt_female a{
+  color: #f00;
+}
+.schedule > div{
+  padding: 5px 0;
+}
+.schedule > div > p{
+  width: 100px;
+}
+.bar_graph{
+  width: calc(100% - 100px);
+}
+.bar_graph{
+  background: #fff;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  height: 16px;
+}
+.occupied{
+  height: 100%;
+}
+.cnt_all .occupied{
+  background: #0f0;
+}
+.cnt_male .occupied{
+  background: #00f;
+}
+.cnt_female .occupied{
+  background: #f00;
+}
+#confirm_reservation{
+  margin-bottom: 20px;
+}
+table{
+  min-width: 800px;
+}

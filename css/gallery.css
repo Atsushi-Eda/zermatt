@@ -1,0 +1,82 @@
+header{
+  background: rgb(0, 58, 255);
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 1;
+}
+h1, h2 {
+  font-size: 120%;
+}
+h1 a{
+  color: #fff;
+  text-decoration: none;
+}
+body{
+  padding-top: 60px;
+}
+img{
+  width: 100%;
+}
+.note{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px 20px;
+}
+.slide{
+  height: 200px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+.gallery_box{
+  width: 300px;
+  text-align: center;
+  background: rgba(255,255,255,.5);
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+.gallery_box p{
+  padding-top: 10px;
+}
+/* #gallery a,
+.gallery_box p{
+  text-decoration: none;
+  color: #000;
+  font-size: 24px;
+} */
+#album,
+#video{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+#gallery{
+  padding: 0 0 50px;
+}
+h3{
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 200%;
+}
+body{
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #eee;
+}
+iframe{
+  width: 100%;
+  height: 200px;
+}

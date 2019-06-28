@@ -1,0 +1,19 @@
+#table_wrap{
+  width: 100%;
+  overflow: auto;
+}
+tbody tr:nth-child(2n-1){
+  background: #eee;
+}
+th{
+  width: 100px;
+}
+th:first-child{
+  width: 175px;
+}
+.male{
+  color: #00f;
+}
+.female{
+  color: #f00;
+}

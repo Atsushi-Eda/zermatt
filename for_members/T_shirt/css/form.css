@@ -1,0 +1,3 @@
+#size:not(.required){
+  display: none;
+}

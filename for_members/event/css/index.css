@@ -1,0 +1,14 @@
+.event{
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  margin-bottom: 15px;
+  background: #fafafa;
+}
+.event_name{
+  color: #003aff;
+  font-weight: bold;
+  padding: 10px 0;
+}
+.to_form{
+  padding-bottom: 5px;
+}

@@ -1,0 +1,13 @@
+th, td{
+  border: 1px solid #eee;
+  text-align: center;
+  height: 45px;
+  padding: 0px;
+}
+.links{
+  text-align: center;
+  padding-bottom: 10px;
+}
+.total{
+  text-align: right;
+}

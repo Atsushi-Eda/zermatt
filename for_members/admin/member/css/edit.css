@@ -1,0 +1,18 @@
+#trim, #retrim{
+  display: none;
+}
+#cropper{
+  width: 80%;
+  max-height: 60vh;
+  margin: auto;
+}
+#member_img{
+  overflow: hidden;
+  margin: auto;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+#member_img img{
+  width: 150px;
+}

@@ -1,0 +1,45 @@
+.form_content{
+  padding: 15px;
+}
+.form_content.type2{
+  margin-bottom: 15px;
+  background: #eee;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+.form_content input[type="text"],
+.form_content textarea{
+  font-size: 120%;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+.form_content input[type="text"]:focus,
+.form_content textarea:focus{
+  border-color: #003aff;
+  box-shadow: 0 2px 5px rgba(0, 58, 255, .5);
+}
+.submit_button{
+  text-align: center;
+  display: block;
+  width: 100px;
+  padding: 10px 0px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 3px;
+  transition: box-shadow .3s;
+  box-shadow: 0px 5px 8px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 5px 8px rgba(0,0,0,0.2);
+  background: #003aff;
+  color: #fff;
+  margin: auto;
+  border: none;
+  font-size: 100%;
+}
+.submit_button:hover{
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0px 5px 15px rgba(0,0,0,0.6);
+}

@@ -1,0 +1,21 @@
+.form_content input[type="number"], .form_content input[type="time"]{
+  font-size: 120%;
+  padding: 5px;
+  width: 40%;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+.form_content input[type="date"]{
+  font-size: 120%;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+#delete{
+  background: #f00;
+}

@@ -1,0 +1,162 @@
+.male.grade0{
+  border-color: #00f;
+  color: #00f;
+}
+.male.grade1{
+  border-color: #8000ff;
+  color: #8000ff;
+}
+.male.grade2{
+  border-color: #0080ff;
+  color: #0080ff;
+}
+.male.grade3{
+  border-color: #000080;
+  color: #000080;
+}
+.female.grade0{
+  border-color: #f00;
+  color: #f00;
+}
+.female.grade1{
+  border-color: #808000;
+  color: #808000;
+}
+.female.grade2{
+  border-color: #ff8000;
+  color: #ff8000;
+}
+.female.grade3{
+  border-color: #ff0080;
+  color: #ff0080;
+}
+#teams{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.team{
+  width: 170px;
+  margin-bottom: 15px;
+}
+.team_header{
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+}
+.team_content{
+  height: 350px;
+  overflow-y: auto;
+}
+@media screen and (max-height: 600px){
+  .team_content{
+    height: 200px;
+  }
+}
+.team_member{
+  padding: 10px;
+  border: 3px solid;
+  background: rgba(255,255,255,.4);
+  margin: 10px;
+  border-radius: 5px;
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.team_member.active{
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+.team_member.error1{
+  background: rgba(255,255,0,.4);
+}
+.team_member.error0{
+  background: rgba(255,0,0,.2);
+}
+.team_member .past{
+  display: none;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 120px;
+  padding: 10px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #000;
+  z-index: 2;
+}
+.team_member:hover .past{
+  display: block;
+}
+.past_event{
+  padding-bottom: 10px;
+}
+.past_member.error0{
+  color: #f00;
+  font-weight: bold;
+}
+.past_member.error1{
+  color: #0f0;
+  font-weight: bold;
+}
+.team_members{
+  padding: 10px 0;
+  min-height: 100%;
+  box-sizing: border-box;
+  background: #eee;
+}
+.buttons{
+  text-align: center;
+  margin: 10px 0;
+}
+.button{
+  width: 150px;
+}
+.counts{
+  display: inline-block;
+  font-size: 70%;
+}
+.count_male{
+  color: #00f;
+}
+.count_female{
+  color: #f00;
+}
+.table_wrap{
+  overflow: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+table{
+  min-width: 800px;
+  border-collapse: collapse;
+}
+td, th{
+  text-align: center;
+  border: 1px solid #eee;
+}
+.team_leader p {
+  display: inline-block;
+}
+.team_leader:before{
+  content: "#";
+  font-weight: bold;
+  color: #000;
+}
+#sortable_controler{
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  padding-right: 5px;
+  background: rgba(255,255,255,.9);
+}

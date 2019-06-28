@@ -1,0 +1,93 @@
+header{
+  background: rgb(0, 58, 255);
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 1;
+}
+h1, h2 {
+  font-size: 120%;
+}
+h1 a{
+  color: #fff;
+  text-decoration: none;
+}
+body{
+  padding-top: 60px;
+}
+img{
+  width: 100%;
+}
+h3{
+  width: 100%;
+}
+#events{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.event{
+  background: rgba(255,255,255,.5);
+  box-sizing: border-box;
+  margin: 20px auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  width: 95%;
+  max-width: 300px;
+  padding: 20px;
+}
+.slide{
+  height: 150px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+.intro{
+  padding: 10px 0;
+  width: 100%;
+}
+.pop_trigger{
+  color: #00f;
+  display: block;
+  padding-top: 10px;
+}
+.pop_wrap{
+  display: none;
+  background: rgba(0,0,0,.8);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+.pop_content > div{
+  position: relative;
+}
+.close{
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 300%;
+  color: #fff;
+  cursor: pointer;
+}
+.pop_content{
+  position: absolute;
+  top: 30%;
+  width: 100%;
+}
+.pop_content iframe{
+  width: 100%;
+  height: 50vh;
+}
