@@ -13,6 +13,8 @@ URL: [http://eda.who.ph/for_members/](http://eda.who.ph/for_members/)
 ユーザー名: 江田篤史  
 パスワード: 1234
 
+※デモに用いている個人情報は，[なんちゃって個人情報](http://kazina.com/dummy/)を用いて作成しました．実在の人物とは一切関係ありません．
+
 ## UI工夫
 
 ・オートコンプリート  
