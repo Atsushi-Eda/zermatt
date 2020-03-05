@@ -20,7 +20,7 @@ URL: [http://eda.who.ph/for_members/](http://eda.who.ph/for_members/)
 ・オートコンプリート  
 http://eda.who.ph/for_members/login.php
 
-・ドロップダウン編集  
+・ドラッグアンドドロップ編集  
 http://eda.who.ph/for_members/admin/event/team/edit.php?event_id=27
 
 ・エクセル風編集  
