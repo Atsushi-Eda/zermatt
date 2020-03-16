@@ -1,16 +1,16 @@
 <?php
 define("T_shirts_type", "AW");
-$form_opening_period = array(
+$form_opening_period = [
   'from' => '2016-11-01 00:00:00',
   'to' => '2018-12-01 17:00:00',
-);
-$sizes = array(
+];
+$sizes = [
   'S',
   'M',
   'L',
   'XL',
   'XXL',
-);
+];
 function index_init(){
   global $pdo, $data;
   $sql = "SELECT * FROM T_shirts WHERE member_id = {$_SESSION['user']['id']}";
@@ -31,10 +31,12 @@ function form_init(){
     exit;
   }
   if(isset($_POST['buy'])){
-    $sql = "INSERT INTO T_shirts (member_id, buy, size) VALUES (:member_id, :buy, :size)";
-    $sth = $pdo->prepare($sql);
     $size = ($_POST['buy']==1) ? $_POST['size'] : NULL;
-    if($sth->execute(array(':member_id'=>$_SESSION['user']['id'], ':buy'=>$_POST['buy'], ':size'=>$size))){
+    if(insertTable('T_shirts', [
+      'member_id' => $_SESSION['user']['id'],
+      'buy' => $_POST['buy'],
+      'size' => $size,
+    ])){
       $_SESSION['flash_message'] = '回答しました。';
     }else{
       $_SESSION['flash_message'] = '回答に失敗しました。';
@@ -59,10 +61,14 @@ function edit_init(){
       exit;
     }
   }else{
-    $sql = "UPDATE T_shirts SET buy = :buy, size = :size WHERE id = :id AND member_id = :member_id";
-    $sth = $pdo->prepare($sql);
     $size = ($_POST['buy']==1) ? $_POST['size'] : NULL;
-    if($sth->execute(array(':buy'=>$_POST['buy'], ':size'=>$size, ':id'=>$_POST['id'], ':member_id'=>$_SESSION['user']['id']))){
+    if(updateTable('T_shirts', [
+      'buy' => $_POST['buy'],
+      'size' => $size,
+    ], [
+      'id' => $_POST['id'],
+      'member_id' => $_SESSION['user']['id'],
+    ])){
       $_SESSION['flash_message'] = '変更しました。';
     }else{
       $_SESSION['flash_message'] = '変更に失敗しました。';

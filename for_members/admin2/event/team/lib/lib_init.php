@@ -80,11 +80,16 @@ function edit_init(){
     $sql = "DELETE FROM event_teams WHERE event_id = :event_id";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':event_id'=>$_POST['event_id']));
-    $sql = "INSERT INTO event_teams (event_id, team, leader, member_id) VALUES (:event_id, :team, :leader, :member_id)";
     foreach($_POST['member'] as $member_id => $team){
       if($team != ''){
-        $sth = $pdo->prepare($sql);
-        $sth->execute(array(':event_id'=>$_POST['event_id'], ':team'=>$team, ':leader'=>$_POST['leader'][$member_id], ':member_id'=>$member_id));
+        if($team != ''){
+          insertTable('event_teams', [
+            'event_id' => $_POST['event_id'],
+            'team' => $team,
+            'leader' => $_POST['leader'][$member_id],
+            'member_id' => $member_id,
+          ]);
+        }
       }
     }
     $_SESSION['flash_message'] = '班分けを登録しました。';

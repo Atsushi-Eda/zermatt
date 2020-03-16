@@ -1,19 +1,19 @@
 <?php
-$form_opening_period = array(
+$form_opening_period = [
   'from' => '2016-11-01 00:00:00',
   'to' => '2017-08-16 17:00:00',
-);
-$participation = array(
+];
+$participation = [
   1 => "参加",
   2 => "不参加",
   3 => "後発",
-);
-$experience = array(
+];
+$experience = [
   1 => "1.足を揃えてスイスイ滑ることができる",
   2 => "2.ある程度滑ることができる",
   3 => "3.何回かしたことがあるがあまり滑れない",
   4 => "4.全くしたことがない",
-);
+];
 function index_init(){
   global $pdo, $data;
   $sql = "SELECT * FROM solicitation_camp_participations WHERE member_id = {$_SESSION['user']['id']}";
@@ -34,9 +34,16 @@ function form_init(){
     exit;
   }
   if(isset($_POST['participation'])){
-    $sql = "INSERT INTO solicitation_camp_participations (member_id, participation, experience, wear, goggles, knit, gloves, note) VALUES (:member_id, :participation, :experience, :wear, :goggles, :knit, :gloves, :note)";
-    $sth = $pdo->prepare($sql);
-    if($sth->execute(array(':member_id'=>$_SESSION['user']['id'], ':participation'=>$_POST['participation'], ':experience'=>$_POST['experience'], ':wear'=>$_POST['wear'], ':goggles'=>$_POST['goggles'], ':knit'=>$_POST['knit'], ':gloves'=>$_POST['gloves'], ':note'=>$_POST['note']))){
+    if(insertTable('solicitation_camp_participations', [
+      'member_id' => $_SESSION['user']['id'],
+      'participation' => $_POST['participation'],
+      'experience' => $_POST['experience'],
+      'wear' => $_POST['wear'],
+      'goggles' => $_POST['goggles'],
+      'knit' => $_POST['knit'],
+      'gloves' => $_POST['gloves'],
+      'note' => $_POST['note'],
+    ])){
       $_SESSION['flash_message'] = '回答しました。';
     }else{
       $_SESSION['flash_message'] = '回答に失敗しました。';
@@ -61,9 +68,17 @@ function edit_init(){
       exit;
     }
   }else{
-    $sql = "UPDATE solicitation_camp_participations SET participation = :participation, experience = :experience, wear = :wear, goggles = :goggles, knit = :knit, gloves = :gloves, note = :note, update_time = null WHERE id = :id AND member_id = :member_id";
-    $sth = $pdo->prepare($sql);
-    if($sth->execute(array(':participation'=>$_POST['participation'], ':experience'=>$_POST['experience'], ':wear'=>$_POST['wear'], ':goggles'=>$_POST['goggles'], ':knit'=>$_POST['knit'], ':gloves'=>$_POST['gloves'], ':note'=>$_POST['note'], ':id'=>$_POST['id'], ':member_id'=>$_SESSION['user']['id']))){
+    if(updateTable('solicitation_camp_participations', [
+      'participation' => $_POST['participation'],
+      'experience' => $_POST['experience'],
+      'wear' => $_POST['wear'],
+      'goggles' => $_POST['goggles'],
+      'knit' => $_POST['knit'],
+      'gloves' => $_POST['gloves'],
+      'note' => $_POST['note'],
+    ], [
+      'member_id' => $_SESSION['user']['id'],
+    ])){
       $_SESSION['flash_message'] = '変更しました。';
     }else{
       $_SESSION['flash_message'] = '変更に失敗しました。';

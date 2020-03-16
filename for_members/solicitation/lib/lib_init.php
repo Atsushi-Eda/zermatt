@@ -46,9 +46,15 @@ function form_init(){
     if($cnt['cnt'] >= $capacity[$_POST['gender']]){
       $_SESSION['flash_message'] = '予約に失敗しました。人数制限を超えています。';
     }else{
-      $sql = "INSERT INTO solicitation_guests (schedule_id, meeting_place, name, gender, school, note, member_id) VALUES (:schedule_id, :meeting_place, :name, :gender, :school, :note, :member_id)";
-      $sth = $pdo->prepare($sql);
-      if($sth->execute(array(':schedule_id'=>$_POST['schedule_id'], ':meeting_place'=>$_POST['meeting_place'], ':name'=>$_POST['name'], ':gender'=>$_POST['gender'], ':school'=>$_POST['school'], ':note'=>$_POST['note'], ':member_id'=>$_SESSION['user']['id']))){
+      if(insertTable('solicitation_guests', [
+        'schedule_id' => $_POST['schedule_id'],
+        'meeting_place' => $_POST['meeting_place'],
+        'name' => $_POST['name'],
+        'gender' => $_POST['gender'],
+        'school' => $_POST['school'],
+        'note' => $_POST['note'],
+        'member_id' => $_SESSION['user']['id']
+      ])){
         $_SESSION['flash_message'] = '予約しました。';
       }else{
         $_SESSION['flash_message'] = '予約に失敗しました。';
@@ -76,9 +82,16 @@ function edit_init(){
       exit;
     }
   }else{
-    $sql = "UPDATE solicitation_guests SET meeting_place = :meeting_place, name = :name, school = :school, note = :note, update_time = null WHERE id = :id AND member_id = :member_id";
-    $sth = $pdo->prepare($sql);
-    if($sth->execute(array(':meeting_place'=>$_POST['meeting_place'], ':name'=>$_POST['name'], ':school'=>$_POST['school'], ':note'=>$_POST['note'], ':id'=>$_POST['id'], ':member_id'=>$_SESSION['user']['id']))){
+    if(updateTable('solicitation_guests', [
+      'meeting_place' => $_POST['meeting_place'],
+      'name' => $_POST['name'],
+      'school' => $_POST['school'],
+      'note' => $_POST['note'],
+    ], [
+      'id' => $_POST['id'],
+      'member_id' => $_SESSION['user']['id'],
+      ]
+    )){
       $_SESSION['flash_message'] = '予約を変更しました。';
     }else{
       $_SESSION['flash_message'] = '予約の変更に失敗しました。';

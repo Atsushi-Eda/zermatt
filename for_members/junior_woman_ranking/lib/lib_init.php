@@ -21,10 +21,13 @@ function form_init(){
     $sql = "DELETE FROM junior_woman_ranking WHERE voter = {$_SESSION['user']['id']}";
     $sth = $pdo->prepare($sql);
     $sth->execute();
-    $sql = "INSERT INTO junior_woman_ranking (voter, candidate, rank, good, bad) VALUES ({$_SESSION['user']['id']}, :candidate, :rank, :good, :bad)";
     foreach($candidates as $candidate_key => $candidate){
-      $sth = $pdo->prepare($sql);
-      $sth->execute(array(':candidate'=>$candidate_key, ':rank'=>$_POST[$candidate_key]['rank'], ':good'=>$_POST[$candidate_key]['good'], ':bad'=>$_POST[$candidate_key]['bad']));
+      insertTable('junior_woman_ranking', [
+        'candidate' => $candidate_key,
+        'rank' => $_POST[$candidate_key]['rank'],
+        'good' => $_POST[$candidate_key]['good'],
+        'bad' => $_POST[$candidate_key]['bad'],
+      ]);
     }
     $_SESSION['flash_message'] = "回答しました。";
     header('Location: http://' . ROOT_DIR . '/for_members/junior_woman_ranking/');

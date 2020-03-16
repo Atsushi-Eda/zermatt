@@ -14,18 +14,48 @@ function edit_init(){
     $member = $sth->fetch(PDO::FETCH_ASSOC);
   }else{
     if(!$_POST['id']){
-      $sql = "INSERT INTO members (name, password, phonetic, nickname, grade, gender, position, birthmonth, birthday, intro_view, intro, video_id, video, blog, `order`) VALUES (:name, :password, :phonetic, :nickname, :grade, :gender, :position, :birthmonth, :birthday, :intro_view, :intro, :video_id, :video, :blog, :order)";
-      $sth = $pdo->prepare($sql);
-      if($sth->execute(array(':name'=>$_POST['name'], ':password'=>$_POST['password'], ':phonetic'=>$_POST['phonetic'], ':nickname'=>$_POST['nickname'], ':grade'=>$_POST['grade'], ':gender'=>$_POST['gender'], ':position'=>$_POST['position'], ':birthmonth'=>$_POST['birthmonth'], ':birthday'=>$_POST['birthday'], ':intro_view'=>$_POST['intro_view'], ':intro'=>$_POST['intro'], ':video_id'=>$_POST['video_id'], ':video'=>$_POST['video'], ':blog'=>$_POST['blog'], ':order'=>$_POST['order']))){
+      if(insertTable('members', [
+        'name' => $_POST['name'],
+        'password' => $_POST['password'],
+        'phonetic' => $_POST['phonetic'],
+        'nickname' => $_POST['nickname'],
+        'grade' => $_POST['grade'],
+        'gender' => $_POST['gender'],
+        'position' => $_POST['position'],
+        'birthmonth' => $_POST['birthmonth'],
+        'birthday' => $_POST['birthday'],
+        'intro_view' => $_POST['intro_view'],
+        'intro' => $_POST['intro'],
+        'video_id' => $_POST['video_id'],
+        'video' => $_POST['video'],
+        'blog' => $_POST['blog'],
+        'order' => $_POST['order'],
+      ])){
         $_SESSION['flash_message'] = '登録しました。';
         $update_id = $pdo->lastInsertId();
       }else{
         $_SESSION['flash_message'] = '登録に失敗しました。';
       }
     }else{
-      $sql = "UPDATE members SET name = :name, password = :password, phonetic = :phonetic, nickname = :nickname, grade = :grade, gender = :gender, position = :position, birthmonth = :birthmonth, birthday = :birthday, intro_view = :intro_view, intro = :intro, video_id = :video_id, video = :video, blog = :blog, `order` = :order WHERE id = :id";
-      $sth = $pdo->prepare($sql);
-      if($sth->execute(array(':name'=>$_POST['name'], ':password'=>$_POST['password'], ':phonetic'=>$_POST['phonetic'], ':nickname'=>$_POST['nickname'], ':grade'=>$_POST['grade'], ':gender'=>$_POST['gender'], ':position'=>$_POST['position'], ':birthmonth'=>$_POST['birthmonth'], ':birthday'=>$_POST['birthday'], ':intro_view'=>$_POST['intro_view'], ':intro'=>$_POST['intro'], ':video_id'=>$_POST['video_id'], ':video'=>$_POST['video'], ':blog'=>$_POST['blog'], ':order'=>$_POST['order'], ':id'=>$_POST['id']))){
+      if(updateTable('members', [
+        'name' => $_POST['name'],
+        'password' => $_POST['password'],
+        'phonetic' => $_POST['phonetic'],
+        'nickname' => $_POST['nickname'],
+        'grade' => $_POST['grade'],
+        'gender' => $_POST['gender'],
+        'position' => $_POST['position'],
+        'birthmonth' => $_POST['birthmonth'],
+        'birthday' => $_POST['birthday'],
+        'intro_view' => $_POST['intro_view'],
+        'intro' => $_POST['intro'],
+        'video_id' => $_POST['video_id'],
+        'video' => $_POST['video'],
+        'blog' => $_POST['blog'],
+        'order' => $_POST['order'],
+      ], [
+        'id' => $_POST['id'],
+      ])){
         $_SESSION['flash_message'] = '変更しました。';
         $update_id = $_POST["id"];
       }else{

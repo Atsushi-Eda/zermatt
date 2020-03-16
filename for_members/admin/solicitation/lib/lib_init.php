@@ -27,9 +27,12 @@ function view_init(){
 function edit_init(){
   global $pdo, $schedules, $cnt, $cnt_male, $cnt_female;
   if(isset($_POST["id"])){
-    $sql = "UPDATE solicitation_schedules SET male = :male, female = :female WHERE id = :id";
-    $sth = $pdo->prepare($sql);
-    if($sth->execute(array(':male'=>$_POST['male'], ':female'=>$_POST['female'], ':id'=>$_POST['id']))){
+    if(updateTable('solicitation_schedules', [
+      'male' => $_POST['male'],
+      'female' => $_POST['female'],
+    ], [
+      'id' => $_POST['id']
+    ])){
       $_SESSION['flash_message'] = '上限を変更しました。';
     }else{
       $_SESSION['flash_message'] = '上限の変更に失敗しました。';

@@ -13,10 +13,10 @@ function login_init(){
   if(isset($_POST['password'])){
     if($_POST['password']=='1234'){
       if($_POST['auto_login']){
-        $sql = "INSERT INTO auto_login2 (token) VALUES (:token)";
-        $sth = $pdo->prepare($sql);
         $token = sha1(uniqid(mt_rand(), true));
-        $sth->execute(array(':token'=>$token));
+        insertTable('auto_login2', [
+          'token' => $token,
+        ]);
         setcookie("token2", $token, time()+60*60*24*365);
       }
       $_SESSION['password'] = true;

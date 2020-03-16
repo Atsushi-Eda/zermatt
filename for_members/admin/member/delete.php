@@ -1,7 +1,11 @@
 <?php
 require_once('../../lib/library.php');
-$sql = "UPDATE members SET view = false, intro_view = false WHERE id = {$_GET['id']}";
-if($pdo->query($sql)){
+if(updateTable('members', [
+  'view' => 0,
+  'intro_view' => 0,
+], [
+  'id' => $_GET['id'],
+])){
   $_SESSION['flash_message'] = 'メンバーを削除しました。';
 }else{
   $_SESSION['flash_message'] = '削除に失敗しました。';

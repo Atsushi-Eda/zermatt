@@ -30,3 +30,36 @@ function flash_message(){
     return '<p id="flash_message">' . $flash_message . "</p>\n";
   }
 }
+function insertTable($table, $datas){
+  global $pdo;
+  $sql =
+    "INSERT INTO `" . $table . "` (" .
+    join(', ', array_map(function($key){
+      return "`" . $key . "`";
+    }, array_keys($datas))) . ') VALUES (' .
+    join(', ', array_map(function($key){
+      return ":" . $key;
+    }, array_keys($datas))) . ')';
+  $placeholders = array_reduce(array_keys($datas), function($placeholders, $key) use ($datas){
+    $placeholders[':' . $key] = $datas[$key];
+    return $placeholders;
+  }, []);
+  return $pdo->prepare($sql)->execute($placeholders);
+}
+function updateTable($table, $datas, $conditions){
+  global $pdo;
+  $sql =
+    "UPDATE `" . $table . "` SET " .
+    join(', ', array_map(function($key){
+      return "`" . $key . "` = :" . $key;
+    }, array_keys($datas))) . ' WHERE ' .
+    join(' AND ', array_map(function($key){
+      return "`" . $key . "` = :" . $key;
+    }, array_keys($conditions)));
+  $fields = array_merge($datas, $conditions);
+  $placeholders = array_reduce(array_keys($fields), function($placeholders, $key) use ($fields){
+    $placeholders[':' . $key] = $fields[$key];
+    return $placeholders;
+  }, []);
+  return $pdo->prepare($sql)->execute($placeholders);
+}

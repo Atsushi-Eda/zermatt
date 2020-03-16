@@ -1,9 +1,9 @@
 <?php
-$gender = array(
+$gender = [
   'male' => '男性',
   'female' => '女性'
-);
-$weekjp = array(
+];
+$weekjp = [
   '日',
   '月',
   '火',
@@ -11,4 +11,4 @@ $weekjp = array(
   '木',
   '金',
   '土'
-);
+];

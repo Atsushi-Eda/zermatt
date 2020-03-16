@@ -37,7 +37,7 @@ include('../../../inc/header.php');
 foreach($event_alls as $event_all){
 
 ?>
-        <option value="<?= $event_all['id'] ?>" <?= ($_GET['event_id'] == $event_all['id']) ? "selected" : "" ?>><?= h($event_all['short_name']) ?></option>
+        <option value="<?= $event_all['id'] ?>" <?= (isset($_GET['event_id']) && $_GET['event_id'] == $event_all['id']) ? "selected" : "" ?>><?= h($event_all['short_name']) ?></option>
 <?php
 }
 ?>

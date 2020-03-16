@@ -43,12 +43,17 @@ function form_init(){
     exit;
   }
   if(!empty($_POST)){
-    $sql = "INSERT INTO event_participations (event_id, member_id, participation, after, meeting_place, note) VALUES (:event_id, :member_id, :participation, :after, :meeting_place, :note)";
     $success_count = 0;
     foreach($events as $event){
-      $sth = $pdo->prepare($sql);
-      $after = ($_POST[$event['id']]['after'] == "1");
-      if($sth->execute(array(':event_id'=>$event['id'], ':member_id'=>$_SESSION['user']['id'], ':participation'=>$_POST[$event['id']]['participation'], ':after'=>$after, ':meeting_place'=>$_POST[$event['id']]['meeting_place'], ':note'=>$_POST[$event['id']]['note']))){
+      $after = (isset($_POST[$event['id']]['after']) && $_POST[$event['id']]['after'] == "1") ? 1 : 0;
+      if(insertTable('event_participations', [
+        'event_id' => $event['id'],
+        'member_id' => $_SESSION['user']['id'],
+        'participation' => $_POST[$event['id']]['participation'],
+        'after' => $after,
+        'meeting_place' => $_POST[$event['id']]['meeting_place'],
+        'note' => $_POST[$event['id']]['note'],
+      ])){
         $success_count++;
       }
     }
@@ -83,20 +88,30 @@ function edit_init(){
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':event_id'=>$_POST['event_id'], ':member_id'=>$_SESSION['user']['id']));
     $participation = $sth->fetch(PDO::FETCH_ASSOC);
+    $after = (isset($_POST['after']) && $_POST['after'] == "1") ? 1 : 0;
     if(!isset($participation['id'])){
-      $sql = "INSERT INTO event_participations (event_id, member_id, participation, after, meeting_place, note) VALUES (:event_id, :member_id, :participation, :after, :meeting_place, :note)";
-      $sth = $pdo->prepare($sql);
-      $after = ($_POST[$event['id']]['after'] == "1");
-      if($sth->execute(array(':event_id'=>$_POST['event_id'], ':member_id'=>$_SESSION['user']['id'], ':participation'=>$_POST['participation'], ':after'=>$after, ':meeting_place'=>$_POST['meeting_place'], ':note'=>$_POST['note']))){
+      if(insertTable('event_participations', [
+        'event_id' => $_POST['event_id'],
+        'member_id' => $_SESSION['user']['id'],
+        'participation' => $_POST['participation'],
+        'after' => $after,
+        'meeting_place' => $_POST['meeting_place'],
+        'note' => $_POST['note'],
+      ])){
         $_SESSION['flash_message'] = "回答を登録しました。";
       }else{
         $_SESSION['flash_message'] = '回答の登録に失敗しました。';
       }
     }else{
-      $sql = "UPDATE event_participations SET participation = :participation, after = :after, meeting_place = :meeting_place, note = :note, update_time = null WHERE event_id = :event_id AND member_id = :member_id";
-      $sth = $pdo->prepare($sql);
-      $after = ($_POST['after'] == "1");
-      if($sth->execute(array(':participation'=>$_POST['participation'], ':after'=>$after, ':meeting_place'=>$_POST['meeting_place'], ':note'=>$_POST['note'], ':event_id'=>$_POST['event_id'], ':member_id'=>$_SESSION['user']['id']))){
+      if(updateTable('event_participations', [
+        'participation' => $_POST['participation'],
+        'after' => $after,
+        'meeting_place' => $_POST['meeting_place'],
+        'note' => $_POST['note'],
+      ], [
+        'event_id' => $_POST['event_id'],
+        'member_id' => $_SESSION['user']['id'],
+      ])){
         $_SESSION['flash_message'] = '回答を変更しました。';
       }else{
         $_SESSION['flash_message'] = '回答の変更に失敗しました。';

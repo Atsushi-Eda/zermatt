@@ -51,16 +51,20 @@ function index_init(){
   }
 }
 function add_init(){
-  global $pdo;
   if(isset($_POST['name'])){
     $count = 0;
     for($i=0; $i<$_POST['duration']; $i++){
-      $sql = "INSERT INTO other_events (name, date, start_time, end_time, view, member_id) VALUES (:name, :date, :start_time, :end_time, :view, :member_id)";
-      $sth = $pdo->prepare($sql);
       $start_time = ($_POST['start_time']=='') ? NULL : $_POST['start_time'];
       $end_time = ($_POST['end_time']=='') ? NULL : $_POST['end_time'];
       $date = date("Y-m-d", strtotime("{$_POST['date']} +{$i} day"));
-      if($sth->execute(array(':name'=>$_POST['name'], ':date'=>$date, ':start_time'=>$start_time, ':end_time'=>$end_time, ':view'=>$_POST['view'], ':member_id'=>$_SESSION['user']['id']))){
+      if(insertTable('other_events', [
+        'name' => $_POST['name'],
+        'date' => $date,
+        'start_time' => $start_time,
+        'end_time' => $end_time,
+        'view' => $_POST['view'],
+        'member_id' => $_SESSION['user']['id']
+      ])){
         $count++;
       }
     }
@@ -83,11 +87,18 @@ function edit_init(){
     $sth->execute(array(':id'=>$_GET['id']));
     $other_event = $sth->fetch(PDO::FETCH_ASSOC);
   }else{
-    $sql = "UPDATE other_events SET name = :name, date = :date, start_time = :start_time, end_time = :end_time, view = :view, member_id = :member_id WHERE id = :id";
-    $sth = $pdo->prepare($sql);
     $start_time = ($_POST['start_time']=='') ? NULL : $_POST['start_time'];
     $end_time = ($_POST['end_time']=='') ? NULL : $_POST['end_time'];
-    if($sth->execute(array(':name'=>$_POST['name'], ':date'=>$_POST['date'], ':start_time'=>$start_time, ':end_time'=>$end_time, ':view'=>$_POST['view'], ':member_id'=>$_SESSION['user']['id'], ':id'=>$_POST['id']))){
+    if(updateTable('other_events', [
+      'name' => $_POST['name'],
+      'date' => $_POST['date'],
+      'start_time' => $start_time,
+      'end_time' => $end_time,
+      'view' => $_POST['view'],
+      'member_id' => $_SESSION['user']['id'],
+    ], [
+      'id'=>$_POST['id'],
+    ])){
       $_SESSION['flash_message'] = '日程を変更しました。';
     }else{
       $_SESSION['flash_message'] = '日程の変更に失敗しました。';

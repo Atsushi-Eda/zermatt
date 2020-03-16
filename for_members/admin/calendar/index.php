@@ -47,7 +47,7 @@ while(checkdate($m, $d, $y)){
           </p>
 <?php
   }
-  if(is_array($other_events[$d])){
+  if(isset($other_events[$d]) && is_array($other_events[$d])){
     foreach($other_events[$d] as $other_event){
 ?>
           <p>

@@ -4,8 +4,8 @@ function view_init(){
   global $pdo, $members, $events, $event_alls, $participations;
   $sql = "SELECT id, name, phonetic, nickname FROM members WHERE view = 1 ORDER BY grade ASC, `order` ASC";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  if($_GET['event_id'] == 0){
-    $sql_event = 1;
+  if(!isset($_GET['event_id']) || $_GET['event_id'] == 0){
+    $sql_event = "grade = ".MANAGER_GRADE;
   }else{
     $sql_event = "id = ".$_GET['event_id'];
   }
@@ -17,7 +17,7 @@ function view_init(){
       $participations[$member['id']][$event['id']] = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
   }
-  $sql = "SELECT * FROM events WHERE questionnaire = 1 ORDER BY date DESC";
+  $sql = "SELECT * FROM events WHERE questionnaire = 1 AND grade = ".MANAGER_GRADE." ORDER BY date DESC";
   $event_alls = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 function count_init(){
@@ -30,7 +30,7 @@ function count_init(){
   foreach($grade_tmps as $grade_tmp){
     $grades[] = $grade_tmp['grade'];
   }
-  $genders = array("%", "male", "female");
+  $genders = ["%", "male", "female"];
   foreach($events as $event){
     $sql = "SELECT count(id) AS cnt FROM event_participations WHERE event_id = {$event['id']}";
     $answers[$event['id']] = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
@@ -54,18 +54,18 @@ function excel_init(){
   global $pdo, $participations, $event, $grade_names;
   $sql = "SELECT * FROM events WHERE id = {$_GET['event_id']}";
   $event = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-  $grade_names = array(
+  $grade_names = [
     "上級生",
     "3年生",
     "2年生",
     "1年生",
-  );
-  $sql_grades = array(
+  ];
+  $sql_grades = [
     "m.grade < ".(MANAGER_GRADE),
     "m.grade = ".(MANAGER_GRADE),
     "m.grade = ".(MANAGER_GRADE + 1),
     "m.grade = ".(MANAGER_GRADE + 2),
-  );
+  ];
   foreach($sql_grades as $key => $sql_grade){
     $sql = "SELECT m.name, p.note FROM event_participations AS p JOIN members AS m ON p.member_id = m.id WHERE p.event_id = {$_GET['event_id']} AND p.participation = 1 AND {$sql_grade} AND gender = 'male' ORDER BY m.order ASC";
     $participations[$key]['male'] = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -77,16 +77,16 @@ function text_init(){
   global $pdo, $text, $event;
   $sql = "SELECT short_name, after, meeting_place FROM events WHERE id = {$_GET['event_id']}";
   $event = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-  $grade_names = array(
+  $grade_names = [
     "上級生",
     "2年生",
     "1年生",
-  );
-  $sql_grades = array(
+  ];
+  $sql_grades = [
     "m.grade < ".(MANAGER_GRADE),
     "m.grade = ".(MANAGER_GRADE + 1),
     "m.grade = ".(MANAGER_GRADE + 2),
-  );
+  ];
   $text = "";
   if($event['meeting_place'] == ''){
     foreach($sql_grades as $key => $sql_grade){
@@ -139,35 +139,45 @@ function edit_init(){
   if(empty($_POST)){
     $sql = "SELECT * FROM events WHERE id = :id AND questionnaire = true";
     $sth = $pdo->prepare($sql);
-    $sth->execute(array(':id'=>$_GET['event_id']));
+    $sth->execute([':id'=>$_GET['event_id']]);
     $event = $sth->fetch(PDO::FETCH_ASSOC);
     $sql = "SELECT * FROM members WHERE id = :id";
     $sth = $pdo->prepare($sql);
-    $sth->execute(array(':id'=>$_GET['member_id']));
+    $sth->execute([':id'=>$_GET['member_id']]);
     $member = $sth->fetch(PDO::FETCH_ASSOC);
     $sql = "SELECT * FROM event_participations WHERE event_id = :event_id AND member_id = :member_id";
     $sth = $pdo->prepare($sql);
-    $sth->execute(array(':event_id'=>$_GET['event_id'], ':member_id'=>$_GET['member_id']));
+    $sth->execute([':event_id'=>$_GET['event_id'], ':member_id'=>$_GET['member_id']]);
     $participation = $sth->fetch(PDO::FETCH_ASSOC);
   }else{
     $sql = "SELECT * FROM event_participations WHERE event_id = :event_id AND member_id = :member_id";
     $sth = $pdo->prepare($sql);
-    $sth->execute(array(':event_id'=>$_POST['event_id'], ':member_id'=>$_POST['member_id']));
+    $sth->execute([':event_id'=>$_POST['event_id'], ':member_id'=>$_POST['member_id']]);
     $participation = $sth->fetch(PDO::FETCH_ASSOC);
+    $after = (isset($_POST['after']) && $_POST['after'] == "1") ? 1 : 0;
     if(!isset($participation['id'])){
-      $sql = "INSERT INTO event_participations (event_id, member_id, participation, after, meeting_place, note) VALUES (:event_id, :member_id, :participation, :after, :meeting_place, :note)";
-      $sth = $pdo->prepare($sql);
-      $after = ($_POST['after'] == "1");
-      if($sth->execute(array(':event_id'=>$_POST['event_id'], ':member_id'=>$_POST['member_id'], ':participation'=>$_POST['participation'], ':after'=>$after, ':meeting_place'=>$_POST['meeting_place'], ':note'=>$_POST['note']))){
+      if(insertTable('event_participations', [
+        'event_id' => $_POST['event_id'],
+        'member_id' => $_POST['member_id'],
+        'participation' => $_POST['participation'],
+        'after' => $after,
+        'meeting_place' => $_POST['meeting_place'],
+        'note' => $_POST['note'],
+      ])){
         $_SESSION['flash_message'] = "回答を登録しました。";
       }else{
         $_SESSION['flash_message'] = '回答の登録に失敗しました。';
       }
     }else{
-      $sql = "UPDATE event_participations SET participation = :participation, after = :after, meeting_place = :meeting_place, note = :note, update_time = null WHERE event_id = :event_id AND member_id = :member_id";
-      $sth = $pdo->prepare($sql);
-      $after = ($_POST['after'] == "1");
-      if($sth->execute(array(':participation'=>$_POST['participation'], ':after'=>$after, ':meeting_place'=>$_POST['meeting_place'], ':note'=>$_POST['note'], ':event_id'=>$_POST['event_id'], ':member_id'=>$_POST['member_id']))){
+      if(updateTable('event_participations', [
+        'participation' => $_POST['participation'],
+        'after' => $after,
+        'meeting_place' => $_POST['meeting_place'],
+        'note' => $_POST['note'],
+      ], [
+        'event_id' => $_POST['event_id'],
+        'member_id' => $_POST['member_id'],
+      ])){
         $_SESSION['flash_message'] = '回答を変更しました。';
       }else{
         $_SESSION['flash_message'] = '回答の変更に失敗しました。';
@@ -181,33 +191,33 @@ function handson_init(){
   global $pdo, $rowHeaders, $contents, $columns;
   $sql = "SELECT id, name FROM members WHERE view = 1 ORDER BY grade ASC, `order` ASC";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  $sql = "SELECT * FROM events WHERE questionnaire = 1 ORDER BY date DESC";
+  $sql = "SELECT * FROM events WHERE questionnaire = 1 AND grade = ".MANAGER_GRADE." ORDER BY date DESC";
   $events = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   foreach($events as $event){
-    $columns[] = array(
+    $columns[] = [
       'data' => $event['id'].'.participation',
       'title' => $event['short_name'].'出欠',
       'type' => 'numeric',
       'allowInvalid' => false
-    );
+    ];
     if($event['after']){
-      $columns[] = array(
+      $columns[] = [
         'data' => $event['id'].'.after',
         'title' => $event['short_name'].'アフター',
         'type' => 'numeric',
         'allowInvalid' => false
-      );
+      ];
     }
     if($event['meeting_place']){
-      $columns[] = array(
+      $columns[] = [
         'data' => $event['id'].'.meeting_place',
         'title' => $event['short_name'].'集合場所'
-      );
+      ];
     }
-    $columns[] = array(
+    $columns[] = [
       'data' => $event['id'].'.note',
       'title' => $event['short_name'].'備考'
-    );
+    ];
   }
   foreach($members as $member){
     foreach($events as $event){

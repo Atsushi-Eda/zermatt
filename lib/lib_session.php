@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($need_pass){
+if(isset($need_pass) && $need_pass){
   if(!isset($_SESSION['password']) && isset($_COOKIE["token2"])){
     $sql = "SELECT id FROM auto_login2 WHERE token = :token";
     $sth = $pdo->prepare($sql);

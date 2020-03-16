@@ -6,8 +6,12 @@ $sth->execute(array(':id'=>$_GET['id'], ':member_id'=>$_SESSION['user']['id']));
 $id = $sth->fetch(PDO::FETCH_ASSOC);
 $_SESSION['flash_message'] = '予約の取り消しに失敗しました。';
 if($id){
-  $sql = "UPDATE solicitation_guests SET deleted = true, update_time = null WHERE id = {$id['id']}";
-  if($pdo->query($sql)){
+  if(updateTable('solicitation_guests', [
+    'deleted' => 1,
+    'update_time' => null,
+  ], [
+    'id' => $id['id'],
+  ])){
     $_SESSION['flash_message'] = '予約を取り消しました。';
   }
 }

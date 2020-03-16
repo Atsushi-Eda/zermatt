@@ -13,10 +13,11 @@ function login_init(){
     $_SESSION['user'] = $sth->fetch(PDO::FETCH_ASSOC);
     if(isset($_SESSION['user']['id'])){
       if($_POST['auto_login']){
-        $sql = "INSERT INTO auto_login (member_id, token) VALUES (:member_id, :token)";
-        $sth = $pdo->prepare($sql);
         $token = sha1(uniqid(mt_rand(), true));
-        $sth->execute(array(':member_id'=>$_SESSION['user']['id'], ':token'=>$token));
+        $sth->execute(insertTable('auto_login', [
+          'member_id' => $_SESSION['user']['id'],
+          'token' => $token,
+        ]));
         setcookie("token", $token, time()+60*60*24*365);
       }
       $_SESSION['flash_message'] = 'ログインに成功しました。';
@@ -32,9 +33,11 @@ function login_init(){
 function change_password_init(){
   global $pdo;
   if(isset($_POST['new_password'])){
-    $sql = "UPDATE members SET password = :new_password WHERE id = :id";
-    $sth = $pdo->prepare($sql);
-    if($sth->execute(array(':new_password'=>$_POST['new_password'], ':id'=>$_SESSION['user']['id']))){
+    if(updateTable('members', [
+      'password' => $_POST['new_password'],
+    ], [
+      'id' => $_SESSION['user']['id'],
+    ])){
       $_SESSION['flash_message'] = 'パスワードを更新しました。';
     }else{
       $_SESSION['flash_message'] = 'パスワードの更新に失敗しました。';
@@ -58,12 +61,13 @@ function timetable_init(){
     $sql = "DELETE FROM timetables WHERE member_id = :member_id";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':member_id'=>$_SESSION['user']['id']));
-    $sql = "INSERT INTO timetables (member_id, time) VALUES (:member_id, :time)";
     foreach($_POST['time'] as $time){
-      $sth = $pdo->prepare($sql);
-      $sth->execute(array(':member_id'=>$_SESSION['user']['id'], ':time'=>$time));
-      $_SESSION['flash_message'] = '時間割を登録しました。';
+      insertTable('timetables', [
+        'member_id' => $_SESSION['user']['id'],
+        'time' => $time,
+      ]);
     }
+    $_SESSION['flash_message'] = '時間割を登録しました。';
     header('Location: http://' . ROOT_DIR . '/for_members/');
     exit;
   }
