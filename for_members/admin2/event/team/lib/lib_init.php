@@ -86,7 +86,7 @@ function edit_init(){
           insertTable('event_teams', [
             'event_id' => $_POST['event_id'],
             'team' => $team,
-            'leader' => $_POST['leader'][$member_id],
+            'leader' => $_POST['leader'][$member_id] ? 1 : 0,
             'member_id' => $member_id,
           ]);
         }
