@@ -46,6 +46,22 @@ function change_password_init(){
     exit;
   }
 }
+function change_manager_init(){
+  global $pdo, $manager_grade;
+  if(!isset($_POST['manager_grade'])){
+    $manager_grade = $pdo->query('SELECT grade FROM manager_grade ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['grade'];
+  }else{
+    if(insertTable('manager_grade', [
+      'grade' => $_POST['manager_grade'],
+    ])){
+      $_SESSION['flash_message'] = '幹部代を'.$_POST['manager_grade'].'代に更新しました。';
+    }else{
+      $_SESSION['flash_message'] = '幹部代の更新に失敗しました。';
+    }
+    header('Location: http://' . ROOT_DIR . '/for_members/');
+    exit;
+  }
+}
 function timetable_init(){
   global $pdo;
   if(!isset($_POST['time'])){
