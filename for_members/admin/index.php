@@ -28,6 +28,7 @@ include('../inc/header.php');
       <li><a href="calendar/">カレンダー</a></li>
       <li><a href="timetable/">時間割</a></li>
       <li><a href="event/">企画管理</a></li>
+      <li><a href="gallery/">ギャラリー管理</a></li>
       <!-- <li><a href="solicitation_camp/output.php">新歓合宿出欠(excel)</a></li> -->
       <!-- <li><a href="summer_camp/">夏合宿出欠</a></li> -->
       <li><a href="training/">トレ管理</a></li>

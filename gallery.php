@@ -1,6 +1,7 @@
 <?php
 $need_pass = true;
 require_once('lib/library.php');
+$grade = isset($_GET['ver']) ? $_GET['ver'] : MANAGER_GRADE;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -32,14 +33,21 @@ include('inc/menu.php');
   <div id="gallery">
     <div id="album">
       <h3>アルバム</h3>
-      <p class="note">
-        <a target="_blank" href="http://zermatt.who.ph/45th_gallery.php">>>45代のギャラリーはこちら</a>
-        <br>
-        <a target="_blank" href="http://zermatt.who.ph/46th_gallery.php">>>46代のギャラリーはこちら</a>
-      </p>
+      <div class="note">
 <?php
-$grade = $_GET['ver'] ? $_GET['ver'] : MANAGER_GRADE;
-$sql = "SELECT * FROM albums WHERE grade = $grade ORDER BY id ASC";
+$sql = "SELECT DISTINCT grade FROM albums WHERE view = 1 ORDER BY grade ASC";
+foreach($pdo->query($sql) as $grades){
+  if($grades['grade'] == $grade){
+    continue;
+  }
+?>
+        <p><a target="_blank" href="http://zermatt.who.ph/gallery.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代のギャラリーはこちら</a></p>
+<?php
+}
+?>
+      </div>
+<?php
+$sql = "SELECT * FROM albums WHERE view = 1 AND grade = $grade ORDER BY id ASC";
 foreach($pdo->query($sql) as $album){
 ?>
       <a href="<?= $album['url'] ?>">
@@ -65,7 +73,7 @@ foreach($pdo->query($sql) as $album){
     <div id="video">
       <h3>ビデオ</h3>
 <?php
-$sql = "SELECT * FROM videos WHERE grade = $grade ORDER BY id ASC";
+$sql = "SELECT * FROM videos WHERE view = 1 AND grade = $grade ORDER BY id ASC";
 foreach($pdo->query($sql) as $video){
 ?>
       <div class="gallery_box">
