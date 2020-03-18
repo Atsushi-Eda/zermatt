@@ -23,6 +23,7 @@ include('../../inc/header.php');
     <?= flash_message() ?>
     <h2>企画管理</h2>
     <ul class="lists">
+      <li><a href="schedule/">スケジュール管理</a></li>
       <li><a href="questionnaire/">アンケート結果</a></li>
       <li><a href="team/">班分け</a></li>
       <li><a href="mvp/">MVP</a></li>

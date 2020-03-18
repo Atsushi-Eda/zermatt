@@ -10,7 +10,7 @@ function edit_init(){
   if(empty($_POST)){
     $sql = "SELECT * FROM members WHERE id = :id";
     $sth = $pdo->prepare($sql);
-    $sth->execute(array(':id'=>$_GET['id']));
+    $sth->execute(array(':id'=>isset($_GET['id'])?$_GET['id']:0));
     $member = $sth->fetch(PDO::FETCH_ASSOC);
   }else{
     if(!$_POST['id']){

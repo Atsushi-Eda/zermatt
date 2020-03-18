@@ -63,3 +63,16 @@ function updateTable($table, $datas, $conditions){
   }, []);
   return $pdo->prepare($sql)->execute($placeholders);
 }
+function deleteTable($table, $conditions){
+  global $pdo;
+  $sql =
+    "DELETE FROM `" . $table . "` WHERE " .
+    join(' AND ', array_map(function($key){
+      return "`" . $key . "` = :" . $key;
+    }, array_keys($conditions)));
+  $placeholders = array_reduce(array_keys($conditions), function($placeholders, $key) use ($conditions){
+    $placeholders[':' . $key] = $conditions[$key];
+    return $placeholders;
+  }, []);
+  return $pdo->prepare($sql)->execute($placeholders);
+}

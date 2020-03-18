@@ -33,7 +33,7 @@ include('../../../inc/header.php');
 foreach($events as $event){
 
 ?>
-        <option value="<?= $event['id'] ?>" <?= ($_GET['event_id'] == $event['id']) ? "selected" : "" ?>><?= h($event['name']) ?></option>
+        <option value="<?= $event['id'] ?>" <?= (isset($_GET['event_id']) && $_GET['event_id'] == $event['id']) ? "selected" : "" ?>><?= h($event['name']) ?></option>
 <?php
 }
 ?>
@@ -55,7 +55,7 @@ if(isset($_GET['event_id']) && $_GET['event_id']!=0){
 ?>
     <div id="teams">
 <?php
-  foreach($team_members as $team => $team_members2){
+  foreach(is_array($team_members) ? $team_members : [] as $team => $team_members2){
 ?>
       <div class="team box">
         <h3><?= h($team) ?>班</h3>
