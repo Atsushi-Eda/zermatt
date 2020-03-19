@@ -27,7 +27,10 @@ include('../../inc/header.php');
     </div>
     <?= flash_message() ?>
     <h2>メンバー管理</h2>
-    <p><a href="edit.php">+新規メンバー作成</a></p>
+    <ul class="actions">
+      <li><a href="edit.php">+新規メンバー作成</a></li>
+      <li><a href="backup.php">メンバー情報のバックアップ</a></li>
+    </ul>
     <div class="form_content">
       <input type="text" id="member_name" placeholder="検索(名前or代)">
     </div>

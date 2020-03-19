@@ -2,9 +2,6 @@
   width: 100%;
   overflow: auto;
 }
-#table_wrap table{
-  min-width: 2000px;
-}
 th, td {
   border: 1px solid #eee;
   text-align: center;
@@ -20,6 +17,6 @@ td{
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.actions li{
-  padding: 10px;
+td img{
+  width: 150px;
 }

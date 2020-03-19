@@ -1,7 +1,7 @@
 <?php
 require_once('../lib/lib_init.php');
 function index_init(){
-  global $pdo, $members, $participations;
+  global $pdo, $members;
   $sql = "SELECT * FROM members WHERE view = true";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -87,4 +87,46 @@ function edit_init(){
     header('Location: http://' . ROOT_DIR . '/for_members/admin/member/');
     exit;
   }
+}
+function backup_init(){
+  global $pdo, $backups;
+  if(!isset($_POST['grade'])){
+    $backups = array_filter(array_map(function($table){
+      $table_name = array_values($table)[0];
+      return strpos($table_name, '_') !== false ? intval(explode('_', $table_name)[1]) : false;
+    }, $pdo->query("SHOW TABLES LIKE 'members%'")->fetchAll(PDO::FETCH_ASSOC)), function($grade){
+      return $grade;
+    });
+  }else{
+    $backup_table = 'members_'.$_POST['grade'];
+    if(
+      $pdo->prepare('CREATE TABLE IF NOT EXISTS '.$backup_table.' LIKE members')->execute() &&
+      $pdo->prepare('TRUNCATE '.$backup_table)->execute() &&
+      $pdo->prepare('INSERT INTO '.$backup_table.' SELECT * FROM members')->execute()
+    ){
+      $_SESSION['flash_message'] = 'テーブルのコピーに成功('.$backup_table.')。';
+    }else{
+      $_SESSION['flash_message'] = 'テーブルのコピーに失敗。';
+    }
+    $origin_dir = '../../../img/member/';
+    $backup_dir = '../../../img/member_'.$_POST['grade'].'/';
+    if(!file_exists($backup_dir)){
+      mkdir($backup_dir);
+    }
+    foreach(scandir($origin_dir) as $file){
+      if($file=="." || $file==".."){
+        continue;
+      }
+      copy($origin_dir.$file, $backup_dir.$file);
+    }
+    header('Location: http://' . ROOT_DIR . '/for_members/admin/member/backup_check.php?grade=' . $_POST['grade']);
+    exit;
+  }
+}
+function backup_check_init(){
+  global $pdo, $members, $grade, $dir;
+  $grade = $_GET['grade'];
+  $dir = '../../../img/member_'.$grade.'/';
+  $sql = "SELECT * FROM members_".$grade." WHERE view = true";
+  $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
