@@ -2,6 +2,9 @@
   width: 100%;
   overflow: auto;
 }
+#table_wrap table{
+  min-width: 500px;
+}
 th, td {
   border: 1px solid #eee;
   text-align: center;

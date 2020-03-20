@@ -26,9 +26,9 @@ include('inc/header.php');
       <li><a href="solicitation/">新歓予約</a></li>
       <li><a href="timetable.php">時間割</a></li>
       <li><a href="event/">企画アンケート</a></li>
-      <li><a href="solicitation_camp/">新歓合宿出欠</a></li>
-      <li><a href="summer_camp/">夏合宿出欠</a></li>
-      <li><a href="waseda_fes_menu/">早稲田祭アンケート</a></li>
+      <!-- <li><a href="solicitation_camp/">新歓合宿出欠</a></li> -->
+      <!-- <li><a href="summer_camp/">夏合宿出欠</a></li> -->
+      <!-- <li><a href="waseda_fes_menu/">早稲田祭アンケート</a></li> -->
 <?php
 if($_SESSION['user']['grade'] == MANAGER_GRADE){
   ?>

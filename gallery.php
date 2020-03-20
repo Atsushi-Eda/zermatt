@@ -31,9 +31,7 @@ $grade = isset($_GET['ver']) ? $_GET['ver'] : MANAGER_GRADE;
 include('inc/menu.php');
 ?>
   <div id="gallery">
-    <div id="album">
-      <h3>アルバム</h3>
-      <div class="note">
+    <div class="note">
 <?php
 $sql = "SELECT DISTINCT grade FROM albums WHERE view = 1 ORDER BY grade ASC";
 foreach($pdo->query($sql) as $grades){
@@ -45,7 +43,9 @@ foreach($pdo->query($sql) as $grades){
 <?php
 }
 ?>
-      </div>
+    </div>
+    <div id="album">
+      <h3>アルバム</h3>
 <?php
 $sql = "SELECT * FROM albums WHERE view = 1 AND grade = $grade ORDER BY id ASC";
 foreach($pdo->query($sql) as $album){
@@ -70,6 +70,7 @@ foreach($pdo->query($sql) as $album){
 <?php
 }
 ?>
+    </div>
     <div id="video">
       <h3>ビデオ</h3>
 <?php
