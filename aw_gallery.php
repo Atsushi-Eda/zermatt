@@ -36,7 +36,7 @@ include('inc/menu.php');
 $sql = "SELECT * FROM aw_albums WHERE view = 1 AND grade = $grade ORDER BY id ASC";
 foreach($pdo->query($sql) as $album){
 ?>
-      <a href="<?= $album['url'] ?>">
+      <a href="<?= $album['url'] ?>" target="_blank">
         <div class="gallery_box">
           <div class="slide">
 <?php

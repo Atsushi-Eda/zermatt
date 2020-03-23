@@ -39,7 +39,7 @@ foreach($pdo->query($sql) as $grades){
     continue;
   }
 ?>
-        <p><a target="_blank" href="http://zermatt.who.ph/gallery.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代のギャラリーはこちら</a></p>
+        <p><a href="http://zermatt.who.ph/gallery.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代のギャラリーはこちら</a></p>
 <?php
 }
 ?>
@@ -50,7 +50,7 @@ foreach($pdo->query($sql) as $grades){
 $sql = "SELECT * FROM albums WHERE view = 1 AND grade = $grade ORDER BY id ASC";
 foreach($pdo->query($sql) as $album){
 ?>
-      <a href="<?= $album['url'] ?>">
+      <a href="<?= $album['url'] ?>" target="_blank">
         <div class="gallery_box">
           <div class="slide">
 <?php
