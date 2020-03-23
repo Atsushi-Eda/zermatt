@@ -24,6 +24,7 @@ include('../../inc/header.php');
     <h2>ギャラリー管理</h2>
     <ul class="lists">
       <li><a href="album/">アルバム管理</a></li>
+      <li><a href="aw_album/">AWアルバム管理</a></li>
       <li><a href="video/">ビデオ管理</a></li>
 
     </ul>

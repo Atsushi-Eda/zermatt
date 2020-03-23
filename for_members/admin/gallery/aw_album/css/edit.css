@@ -1,0 +1,12 @@
+.album_img{
+  display: inline-block;
+  width: 280px;
+  height: 200px;
+  overflow: hidden;
+}
+.album_img img{
+  width: 100%;
+}
+#img_button{
+  display: none;
+}

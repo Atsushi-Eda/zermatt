@@ -1,4 +1,5 @@
-/img/member*
-/img/event
-/img/gallery
+/img/member*/
+/img/event/*
+/img/gallery/*
+/img/aw_gallery/*
 lib/lib_db.php
