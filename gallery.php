@@ -39,7 +39,7 @@ foreach($pdo->query($sql) as $grades){
     continue;
   }
 ?>
-        <p><a href="http://zermatt.who.ph/gallery.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代のギャラリーはこちら</a></p>
+        <p><a href="gallery.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代のギャラリーはこちら</a></p>
 <?php
 }
 ?>

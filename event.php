@@ -1,6 +1,6 @@
 <?php
 require_once('lib/library.php');
-$manager = isset($_GET['ver']) ? $_GET['ver'] : MANAGER_GRADE;
+$grade = isset($_GET['ver']) ? $_GET['ver'] : MANAGER_GRADE;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -29,9 +29,22 @@ $manager = isset($_GET['ver']) ? $_GET['ver'] : MANAGER_GRADE;
 <?php
 include('inc/menu.php');
 ?>
+  <div class="note">
+<?php
+$sql = "SELECT DISTINCT grade FROM events WHERE view = 1 ORDER BY grade ASC";
+foreach($pdo->query($sql) as $grades){
+  if($grades['grade'] == $grade){
+    continue;
+  }
+?>
+    <p><a href="event.php?ver=<?= h($grades['grade']) ?>">&gt;&gt;<?= h($grades['grade']) ?>代の企画紹介はこちら</a></p>
+<?php
+}
+?>
+  </div>
   <div id="events">
 <?php
-$sql = "SELECT * FROM events WHERE grade = {$manager} AND view = true ORDER BY date ASC";
+$sql = "SELECT * FROM events WHERE grade = {$grade} AND view = true ORDER BY date ASC";
 foreach($pdo->query($sql) as $event){
 ?>
     <div class="event">

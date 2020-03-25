@@ -11,7 +11,8 @@ menu_init();
         <li><a href="calendar.php">カレンダー</a></li>
         <li><a href="./#about">サークル紹介</a></li>
         <li><a href="event.php">企画紹介</a></li>
-        <li><a href="./for_members/">メンバー用ページ</a></li>
+        <li><a href="gallery.php">ギャラリー</a></li>
+        <li><a href="for_members/">メンバー用ページ</a></li>
         <li>
           <dl>
             <dt><a href="./#member">メンバー紹介</a></dt>

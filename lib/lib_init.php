@@ -40,7 +40,7 @@ function menu_init(){
 function login_init(){
   global $pdo;
   if(isset($_POST['password'])){
-    if($_POST['password']=='1234'){
+    if($_POST['password']==$pdo->query('SELECT password FROM password ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['password']){
       if($_POST['auto_login']){
         $token = sha1(uniqid(mt_rand(), true));
         insertTable('auto_login2', [
@@ -57,7 +57,10 @@ function login_init(){
   }
 }
 function index_init(){
-  global $pdo, $snss, $circle_introduction, $solicitation_video, $link_categories, $links;
+  global $pdo, $mainvisuals, $snss, $circle_introduction, $solicitation_video, $link_categories, $links;
+  $mainvisuals = array_map(function($mainvisual){
+    return $mainvisual['id'].'.'.$mainvisual['extension'];
+  }, $pdo->query("SELECT * FROM mainvisuals WHERE view = 1 ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC));
   $snss = $pdo->query("SELECT * FROM snss WHERE view = 1")->fetchAll(PDO::FETCH_ASSOC);
   $circle_introduction = $pdo->query('SELECT text FROM circle_introduction ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['text'];
   $solicitation_video = $pdo->query('SELECT url FROM solicitation_video ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['url'];
@@ -145,8 +148,8 @@ function solicitation_init(){
 }
 function member_init(){
   global $pdo, $member_table, $member_image, $grades, $oldest, $manager;
-  $member_table = "members_" . $_GET['ver'];
-  $member_image = "member_" . $_GET['ver'];
+  $member_table = "members_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
+  $member_image = "member_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
   $manager = $_GET['ver'];
   $sql = "SHOW TABLES LIKE '" . $member_table . "'";
   if(!$pdo->query($sql)->fetch(PDO::FETCH_ASSOC)){

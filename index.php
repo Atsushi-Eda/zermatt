@@ -47,12 +47,9 @@ include('inc/menu.php');
     </header>
     <div id="mv_slide">
 <?php
-foreach(scandir("img/mv/", SCANDIR_SORT_DESCENDING) as $file){
-  if($file=="." || $file==".."){
-    continue;
-  }
+foreach($mainvisuals as $mainvisual){
 ?>
-      <div><?= readImg("img/mv/".$file) ?></div>
+      <div><?= readImg("img/mv/".$mainvisual) ?></div>
 <?php
 }
 ?>
