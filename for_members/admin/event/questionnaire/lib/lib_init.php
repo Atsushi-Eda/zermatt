@@ -22,7 +22,7 @@ function view_init(){
 }
 function count_init(){
   global $pdo, $events, $grades, $genders, $answers, $participations, $afters;
-  $sql = "SELECT * FROM events WHERE questionnaire = 1 ORDER BY date DESC";
+  $sql = "SELECT * FROM events WHERE questionnaire = 1 AND grade = ".MANAGER_GRADE." ORDER BY date DESC";
   $events = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   $sql = "SELECT grade FROM members WHERE view = 1 GROUP BY grade ORDER BY grade DESC";
   $grade_tmps = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);

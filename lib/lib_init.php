@@ -1,13 +1,42 @@
 <?php
-call_user_func(function(){
-  global $pdo, $oldest, $show_b1;
-  $sql = "SELECT grade FROM members WHERE intro_view = true ORDER BY grade ASC";
-  $tmp = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-  $oldest = $tmp["grade"];
-  $sql = "SELECT id FROM members WHERE intro_view = true AND grade = " . (MANAGER_GRADE + 2);
-  $tmp = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-  $show_b1 = isset($tmp["id"]);
-});
+function menu_init(){
+  global $pdo, $menu_grades;
+  $grades = array_reduce(
+    $pdo->query("SELECT * FROM grades WHERE view = 1 ORDER BY grade ASC")->fetchAll(PDO::FETCH_ASSOC),
+    function($grades, $grade){
+      $grades[$grade['grade']] = $grade;
+      return $grades;
+    },
+    []
+  );
+  $menu_grades[] = [
+    'label' => ordSuffix(MANAGER_GRADE).'(3年生幹部)',
+    'image' => MANAGER_GRADE.'.'.$grades[MANAGER_GRADE]['image_extension'],
+    'tag' => 'b3',
+  ];
+  if(in_array(MANAGER_GRADE+2, array_keys($grades))){
+    $menu_grades[] = [
+      'label' => ordSuffix(MANAGER_GRADE+2).'(1年生)',
+      'image' => (MANAGER_GRADE+2).'.'.$grades[MANAGER_GRADE+2]['image_extension'],
+      'tag' => 'b1',
+    ];
+  }
+  $menu_grades[] = [
+    'label' => ordSuffix(MANAGER_GRADE+1).'(2年生)',
+    'image' => (MANAGER_GRADE+1).'.'.$grades[MANAGER_GRADE+1]['image_extension'],
+    'tag' => 'b2',
+  ];
+  $menu_grades[] = [
+    'label' => ordSuffix(MANAGER_GRADE-1).'(4年生)',
+    'image' => (MANAGER_GRADE-1).'.'.$grades[MANAGER_GRADE-1]['image_extension'],
+    'tag' => 'b4',
+  ];
+  $menu_grades[] = [
+    'label' => ordSuffix(array_keys($grades)[0]).'~'.ordSuffix(MANAGER_GRADE-2).'(上級生)',
+    'image' => (MANAGER_GRADE-2).'.'.$grades[MANAGER_GRADE-2]['image_extension'],
+    'tag' => 'm',
+  ];
+}
 function login_init(){
   global $pdo;
   if(isset($_POST['password'])){
@@ -26,6 +55,19 @@ function login_init(){
       exit;
     }
   }
+}
+function index_init(){
+  global $pdo, $snss, $circle_introduction, $solicitation_video, $link_categories, $links;
+  $snss = $pdo->query("SELECT * FROM snss WHERE view = 1")->fetchAll(PDO::FETCH_ASSOC);
+  $circle_introduction = $pdo->query('SELECT text FROM circle_introduction ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['text'];
+  $solicitation_video = $pdo->query('SELECT url FROM solicitation_video ORDER BY id DESC LIMIT 1')->fetch(PDO::FETCH_ASSOC)['url'];
+  $link_categories = array_map(function($link_category_tmp){
+    return $link_category_tmp['category'];
+  }, $pdo->query("SELECT DISTINCT category FROM links WHERE view = 1")->fetchAll(PDO::FETCH_ASSOC));
+  $links = array_reduce($link_categories, function($links, $link_category) use ($pdo) {
+    $links[$link_category] = $pdo->query("SELECT * FROM links WHERE view = 1 AND category = '".$link_category."'")->fetchAll(PDO::FETCH_ASSOC);
+    return $links;
+  }, []);
 }
 function calendar_init(){
   global $pdo, $y, $m, $national_holidays, $birthdays, $events, $other_events;
@@ -53,7 +95,7 @@ function calendar_init(){
     }
     ksort($national_holidays);
   }
-  $sql = "SELECT nickname, birthday FROM members WHERE birthmonth = {$m} AND view = true";
+  $sql = "SELECT nickname, birthday FROM members WHERE birthmonth = {$m} AND view = 1";
   $birthday_tmps = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   foreach($birthday_tmps as $birthday_tmp){
     if(isset($birthdays[$birthday_tmp['birthday']])){
@@ -125,7 +167,7 @@ function member_init(){
       $grades[] = $i;
     }
   }else{
-    $sql = "SELECT DISTINCT grade FROM {$member_table} WHERE intro_view = true ORDER BY grade DESC";
+    $sql = "SELECT DISTINCT grade FROM {$member_table} WHERE intro_view = 1 ORDER BY grade DESC";
     foreach($pdo->query($sql) as $grade){
       $grades[] = $grade['grade'];
     }

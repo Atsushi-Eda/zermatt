@@ -23,10 +23,7 @@ h3{
   font-size: 120%;
   padding: 10px 0;
 }
-#home,
-#about,
-#member,
-#link{
+.index_section{
   -webkit-justify-content: space-around;
   justify-content: space-around;
   display: -webkit-flex;
@@ -38,38 +35,22 @@ h3{
   padding: 30px 0 50px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
-#home{
+#sns{
   background: rgba(230,230,230,.6);
 }
-#home > div,
-#link > div,
-.grade_box{
+.card{
   background: rgba(255,255,255,.5);
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-  width: 90%;
+  min-width: 300px;
 }
 .timestamp{
   color: #aaa;
 }
 #link h2{
   color: #fff;
-}
-#link > div{
-  max-width: 400px;
-}
-#twitter{
-  max-width: 400px;
-}
-#youtube{
-  max-width: 600px;
-}
-#youtube iframe{
-  width: 100%;
-  height: calc(100% - 39px);
-  border-radius: 5px;
 }
 #about{
   background: rgba(230,230,230,.75);
@@ -89,6 +70,14 @@ h3{
   font-size: 110%;
   line-height: 1.5;
 }
+#video{
+  max-width: 600px;
+}
+#video iframe{
+  width: 100%;
+  height: calc(100% - 39px);
+  border-radius: 5px;
+}
 #member{
   background: rgba(230, 230, 230, .6);
 }
@@ -96,6 +85,7 @@ h3{
   width: 300px;
   height: 250px;
   text-align: center;
+  margin: auto;
 }
 #member a{
   text-decoration: none;

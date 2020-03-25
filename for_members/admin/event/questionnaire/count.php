@@ -29,7 +29,7 @@ include('../../../inc/header.php');
       <table>
         <thead>
           <tr>
-            <th rowspan="2">企画名</th>
+            <th rowspan="2">企画名(回答数)</th>
 <?php
 foreach($grades as $grade){
 ?>

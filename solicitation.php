@@ -27,12 +27,6 @@ solicitation_init();
 include('inc/menu.php');
 ?>
   <div class="content">
-    <h3>新歓チラシ</h3>
-    <ul>
-      <li><a href="pdf/solicitation.pdf">コンパ情報(PDF)</a></li>
-    </ul>
-  </div>
-  <div class="content">
     <h3>コンパ情報</h3>
       <div id="schedules">
 <?php
@@ -89,7 +83,7 @@ foreach($schedules as $schedule_id => $schedule){
     <h3>お問い合わせ</h3>
     <dl>
       <dt>メール</dt>
-      <dd>zermatt47th@gmail.com</dd>
+      <dd>zermatt<?= h(ordSuffix(MANAGER_GRADE)) ?>@gmail.com</dd>
       <dt>twitter</dt>
       <dd>@zermattskiclub</dd>
     </dl>
