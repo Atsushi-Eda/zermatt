@@ -32,13 +32,3 @@ footer li{
 .member input{
   display: none;
 }
-#year{
-  box-sizing: border-box;
-  padding: 10px;
-  width: 80px;
-}
-#month, #day{
-  box-sizing: border-box;
-  padding: 10px 0;
-  width: 40px;
-}

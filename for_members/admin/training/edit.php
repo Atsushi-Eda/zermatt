@@ -11,6 +11,8 @@ edit_init();
   <title>トレ出欠登録</title>
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
+  <?= readCss("../../css/form.css") ?>
+  <?= readCss("css/date.css") ?>
   <?= readCss("css/edit.css") ?>
 </head>
 <body>
@@ -24,12 +26,12 @@ include('../../inc/header.php');
     </div>
     <?= flash_message() ?>
     <h2><?= h(date("Y/n/j", strtotime($date))) ?>(<?= h($weekjp[date('w', strtotime($date))]) ?>)トレ出欠登録</h2>
-    <p style="padding:10px;">
+    <div class=form_content>
       <input type="number" id="year" value="<?= h(date("Y", strtotime($date))) ?>">年
       <input type="number" id="month" value="<?= h(date("n", strtotime($date))) ?>">月
       <input type="number" id="day" value="<?= h(date("j", strtotime($date))) ?>">日
       <a href="javascript:void(0)" id="move_date">へ移動</a>
-    </p>
+    </div>
 <?php
 foreach($grades as $grade){
 ?>
@@ -60,11 +62,9 @@ foreach($grades as $grade){
   </div>
 </div>
 <?= readJs("../../../js/jquery-1.11.3.min.js") ?>
+<?= readJs("js/date.js") ?>
 <script>
 $(function(){
-  $("#move_date").click(function(){
-    location.href = "http://<?= ROOT_DIR ?>/for_members/admin/training/edit.php?date="+$("#year").val()+"-"+('0'+$("#month").val()).slice(-2)+"-"+('0'+$("#day").val()).slice(-2);
-  });
   var date = '<?= h($date) ?>';
   $(".member input").change(function(){
     var id = $(this).val();

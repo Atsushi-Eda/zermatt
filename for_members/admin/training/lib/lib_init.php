@@ -19,14 +19,15 @@ function edit_init(){
   }
 }
 function view_init(){
-  global $pdo, $dates, $members, $participations;
+  global $pdo, $filter_date, $dates, $members, $participations;
+  $filter_date = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d");
   $sql = "SELECT id, name FROM members WHERE view = 1 AND grade != " . MANAGER_GRADE . " ORDER BY grade ASC, `order` ASC, phonetic ASC";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  $sql = "SELECT date FROM training_participations GROUP BY date";
-  $date_tmps = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  foreach($date_tmps as $date_tmp){
-    $dates[] = $date_tmp['date'];
-  }
+  $sql_date = isset($_GET['date']) ? "date >= '".$_GET['date']."'" : 1;
+  $sql = "SELECT DISTINCT date FROM training_participations WHERE $sql_date ORDER BY date";
+  $dates = array_map(function($date){
+    return $date['date'];
+  }, $date_tmps = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC));
   foreach($dates as $date){
     $sql = "SELECT member_id FROM training_participations WHERE date = '" . $date ."'";
     $participation_tmps = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);

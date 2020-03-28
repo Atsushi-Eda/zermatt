@@ -11,6 +11,7 @@ view_init();
   <title>トレ出欠確認</title>
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
+  <?= readCss("css/date.css") ?>
   <?= readCss("css/view.css") ?>
 </head>
 <body>
@@ -24,6 +25,13 @@ include('../../inc/header.php');
     </div>
     <?= flash_message() ?>
     <h2>トレ出欠確認</h2>
+    <div class=form_content>
+      <input type="number" id="year" value="<?=  h(date("Y", strtotime($filter_date))) ?>">年
+      <input type="number" id="month" value="<?= h(date("n", strtotime($filter_date))) ?>">月
+      <input type="number" id="day" value="<?= h(date("j", strtotime($filter_date))) ?>">日
+      <a href="javascript:void(0)" id="move_date">以降のみ表示</a>
+    </div>
+    <p class="output_excel"><a href="excel.php<?= isset($_GET['date']) ? '?date='.h($_GET['date']) : '' ?>">&gt;&gt;エクセル出力</a></p>
     <div id="table_wrap">
       <table>
         <thead>
@@ -45,11 +53,11 @@ foreach($members as $member){
 ?>
           <tr>
             <td><?= h($member['name']) ?></td>
-            <td><?= h(count($participations[$member['id']])) ?></td>
+            <td><?= h(isset($participations[$member['id']]) ? count($participations[$member['id']]) : 0) ?></td>
 <?php
   foreach($dates as $date){
 ?>
-            <td><?= h($participations[$member['id']][$date]) ?></td>
+            <td><?= h(isset($participations[$member['id']][$date]) ? 1 : 0) ?></td>
 <?php
   }
 ?>
@@ -62,5 +70,7 @@ foreach($members as $member){
     </div>
   </div>
 </div>
+<?= readJs("../../../js/jquery-1.11.3.min.js") ?>
+<?= readJs("js/date.js") ?>
 </body>
 </html>

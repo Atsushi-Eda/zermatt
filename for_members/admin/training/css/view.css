@@ -10,3 +10,6 @@ th, td{
 #table_wrap{
   overflow: auto;
 }
+.output_excel{
+  padding: 5px;
+}
