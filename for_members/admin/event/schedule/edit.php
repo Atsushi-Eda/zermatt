@@ -13,7 +13,7 @@ edit_init();
   <?= readCss("../../../css/validationEngine.jquery.css") ?>
   <?= readCss("../../../css/for_members.css") ?>
   <?= readCss("../../../css/form.css") ?>
-  <?= readCss("css/edit.css") ?>
+  <?= readCss("../../../css/upload_image.css") ?>
 </head>
 <body>
 <div id="mycontents">
@@ -94,7 +94,7 @@ include('../../../inc/header.php');
       </div>
       <div class="form_content">
         <p>画像</p>
-        <div id="event_imgs">
+        <div id="upload_image_wrapper">
 <?php
 $dir = "../../../../img/event/" . $event['id'] . "/";
 if($event['id'] && file_exists($dir)){
@@ -103,13 +103,13 @@ if($event['id'] && file_exists($dir)){
       continue;
     }
 ?>
-            <div class="event_img"><?= readImg($dir . $file) ?></div>
+            <?= readImg($dir.$file, 'upload_image') ?>
 <?php
   }
 }
 ?>
         </div>
-        <label class="button"><input type="file" name="imgs[]" id="img_button" accept="image/*" multiple>ファイルを選択</label>
+        <label class="button"><input type="file" name="imgs[]" id="upload_image_button" accept="image/*" multiple>ファイルを選択</label>
       </div>
       <div class="form_content">
         <input type="submit" value="登録" class="submit_button">
@@ -120,6 +120,6 @@ if($event['id'] && file_exists($dir)){
   <?= readJs("../../../js/jquery.validationEngine.js") ?>
   <?= readJs("../../../js/jquery.validationEngine-ja.js") ?>
   <?= readJs("../../../js/validation.js") ?>
-  <?= readJs("js/edit.js") ?>
+  <?= readJs("../../../js/upload_image.js") ?>
 </body>
 </html>

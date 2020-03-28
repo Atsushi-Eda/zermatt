@@ -1,6 +1,6 @@
 $(function(){
   $(".arrows span").click(function(){
-    $("html,body").animate({scrollTop: $("#home").position().top}, 'slow');
+    $("html,body").animate({scrollTop: $("#sns").position().top}, 'slow');
   });
   if(!$(this).scrollTop()){
     $(".arrows-wrap").css('position', 'fixed');

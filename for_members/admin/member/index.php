@@ -12,7 +12,7 @@ index_init();
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
   <?= readCss("../../../css/form.css") ?>
-  <?= readCss("css/index.css") ?>
+  <?= readCss("../css/admin_table.css") ?>
   <?= readJs("../../../js/jquery-1.11.3.min.js") ?>
   <?= readJs("../../js/rome.js") ?>
 </head>
@@ -27,19 +27,19 @@ include('../../inc/header.php');
     </div>
     <?= flash_message() ?>
     <h2>メンバー管理</h2>
-    <ul class="actions">
-      <li><a href="edit.php">+新規メンバー作成</a></li>
-      <li><a href="backup.php">メンバー情報のバックアップ</a></li>
+    <ul>
+      <li style="padding: 5px;"><a href="edit.php">+新規メンバー作成</a></li>
+      <li style="padding: 5px;"><a href="backup.php">メンバー情報のバックアップ</a></li>
     </ul>
     <div class="form_content">
       <input type="text" id="member_name" placeholder="検索(名前or代)">
     </div>
     <div id="table_wrap">
-      <table>
+      <table style="min-width: 2000px;">
         <thead>
           <tr>
-            <th>操作</th>
-            <th>ID</th>
+            <th class="action">操作</th>
+            <th class="id">ID</th>
             <th>名前</th>
             <th>パスワード</th>
             <th>よみがな</th>

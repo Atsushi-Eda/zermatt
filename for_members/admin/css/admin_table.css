@@ -3,7 +3,7 @@
   overflow: auto;
 }
 #table_wrap table{
-  min-width: 500px;
+  min-width: 100%;
 }
 th, td {
   border: 1px solid #eee;
@@ -11,6 +11,12 @@ th, td {
   height: 45px;
   padding: 10px;
   box-sizing: border-box;
+}
+th.action{
+  width: 100px;
+}
+th.id{
+  width: 80px;
 }
 tbody tr:nth-child(2n-1) {
   background: #eee;
@@ -21,5 +27,5 @@ td{
   text-overflow: ellipsis;
 }
 td img{
-  width: 150px;
+  max-width: 100%;
 }

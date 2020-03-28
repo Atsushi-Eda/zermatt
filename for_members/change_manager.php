@@ -23,6 +23,7 @@ include('inc/header.php');
     <div id="pankuzu">
       <a href="./">TOP</a> > 幹部代変更
     </div>
+    <?= flash_message() ?>
     <h2>幹部代変更</h2>
     <form id="form" method="post" action="change_manager.php" autocomplete="off">
       <div class="form_content required">

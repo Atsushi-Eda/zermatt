@@ -12,6 +12,7 @@ index_init();
   <?= readCss("../../../../css/reset.css") ?>
   <?= readCss("../../../css/for_members.css") ?>
   <?= readCss("../../../../css/form.css") ?>
+  <?= readCss("../../css/admin_table.css") ?>
   <?= readCss("css/index.css") ?>
   <?= readJs("../../../../js/jquery-1.11.3.min.js") ?>
   <?= readJs("../../../js/rome.js") ?>
@@ -32,11 +33,11 @@ include('../../../inc/header.php');
       <input type="text" id="album_name" placeholder="検索">
     </div>
     <div id="table_wrap">
-      <table>
+      <table style="min-width: 1000px;">
         <thead>
           <tr>
-            <th>操作</th>
-            <th>ID</th>
+            <th class="action">操作</th>
+            <th class="id">ID</th>
             <th>名前</th>
             <th>URL</th>
             <th>代</th>

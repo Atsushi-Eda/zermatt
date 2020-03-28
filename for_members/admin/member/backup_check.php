@@ -12,7 +12,7 @@ backup_check_init();
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
   <?= readCss("../../../css/form.css") ?>
-  <?= readCss("css/backup_check.css") ?>
+  <?= readCss("../css/admin_table.css") ?>
   <?= readJs("../../../js/jquery-1.11.3.min.js") ?>
   <?= readJs("../../js/rome.js") ?>
 </head>
@@ -28,10 +28,10 @@ include('../../inc/header.php');
     <?= flash_message() ?>
     <h2><?= h($grade) ?>代版メンバー情報バックアップ確認</h2>
     <div id="table_wrap">
-      <table>
+      <table style="min-width: 500px;">
         <thead>
           <tr>
-            <th>ID</th>
+            <th class="id">ID</th>
             <th>名前</th>
             <th>紹介文</th>
             <th>画像</th>
@@ -46,7 +46,7 @@ foreach($members as $member){
             <td><?= h($member['name']) ?></td>
             <td><?= h($member['intro']) ?></td>
             <td>
-              <div class="album_img"><?= file_exists($dir.$member['id'].".jpg")!==false ? readImg($dir.$member['id'].".jpg") : 'なし' ?></div>
+              <div class="album_img" style="max-width: 150px;"><?= file_exists($dir.$member['id'].".jpg")!==false ? readImg($dir.$member['id'].".jpg") : 'なし' ?></div>
             </td>
           </tr>
 <?php

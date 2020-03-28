@@ -8,7 +8,7 @@ edit_init();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#003aff">
-  <title>AWアルバム登録</title>
+  <title>メインビジュアル画像登録</title>
   <?= readCss("../../../../css/reset.css") ?>
   <?= readCss("../../../css/validationEngine.jquery.css") ?>
   <?= readCss("../../../css/for_members.css") ?>
@@ -22,42 +22,32 @@ include('../../../inc/header.php');
 ?>
   <div id="maincontents">
     <div id="pankuzu">
-      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">ギャラリー管理</a> > <a href="./">AWアルバム管理</a> > AWアルバム登録
+      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">トップページ管理</a> > <a href="./">メインビジュアル管理</a> > メインビジュアル画像登録
     </div>
     <?= flash_message() ?>
-    <h2>AWアルバム登録</h2>
+    <h2>メインビジュアル画像登録</h2>
     <form id="form" method="POST" action="edit.php" autocomplete="off" enctype="multipart/form-data">
-      <input type="hidden" name="id" value="<?= h($album['id']) ?>">
+      <input type="hidden" name="id" value="<?= h($mainvisual['id']) ?>">
       <div class="form_content required">
-        <p>名前</p>
-        <input type="text" name="name" value="<?= h($album['name']) ?>">
-      </div>
-      <div class="form_content required">
-        <p>URL</p>
-        <input type="text" name="url" value="<?= h($album['url']) ?>">
-      </div>
-      <div class="form_content required">
-        <p>代</p>
-        <input type="number" name="grade" value="<?= $album['grade'] ? h($album['grade']) : (MANAGER_GRADE-1) ?>">代AW大会
+        <p>表示</p>
+        <div class="radios">
+          <label><input type="radio" name="view" value="1" <?= $mainvisual['view'] ? 'checked' : '' ?>><span>表示</span></label>
+          <label><input type="radio" name="view" value="0" <?= !$mainvisual['view'] ? 'checked' : '' ?>><span>非表示</span></label>
+        </div>
       </div>
       <div class="form_content">
         <p>画像</p>
         <div id="upload_image_wrapper">
 <?php
-$dir = "../../../../img/aw_gallery/" . $album['id'] . "/";
-if($album['id'] && file_exists($dir)){
-  foreach(scandir($dir) as $file){
-    if($file=="." || $file==".."){
-      continue;
-    }
+$file = "../../../../img/mv/" . $mainvisual['id'] . "." . $mainvisual['extension'];
+if($mainvisual['id'] && file_exists($file)){
 ?>
-            <?= readImg($dir.$file, 'upload_image') ?>
+          <?= readImg($file, 'upload_image') ?>
 <?php
-  }
 }
 ?>
         </div>
-        <label class="button"><input type="file" name="imgs[]" id="upload_image_button" accept="image/*" multiple>ファイルを選択</label>
+        <label class="button"><input type="file" name="img" id="upload_image_button" accept="image/*">ファイルを選択</label>
       </div>
       <div class="form_content">
         <input type="submit" value="登録" class="submit_button">

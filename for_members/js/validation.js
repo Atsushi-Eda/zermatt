@@ -1,6 +1,7 @@
 $(function(){
   $("#form").validationEngine();
   $(".form_content.required input").addClass("validate[required]");
+  $(".form_content.required textarea").addClass("validate[required]");
   $('.validation_trigger input').change(function(){
     if($(this).val()=="1"){
       $(this).parent().parent().parent().nextAll('.validation_change').addClass('required');

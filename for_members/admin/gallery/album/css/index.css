@@ -1,25 +1,3 @@
-#table_wrap{
-  width: 100%;
-  overflow: auto;
-}
-#table_wrap table{
-  min-width: 800px;
-}
-th, td {
-  border: 1px solid #eee;
-  text-align: center;
-  height: 45px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-tbody tr:nth-child(2n-1) {
-  background: #eee;
-}
-td{
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 th:last-child,
 td:last-child{
   width: 340px;
