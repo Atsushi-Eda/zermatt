@@ -11,8 +11,8 @@ view_init();
   <title>トレ出欠確認</title>
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
-  <?= readCss("css/date.css") ?>
-  <?= readCss("css/view.css") ?>
+  <?= readCss("../../css/form.css") ?>
+  <?= readJs("../../js/filter_date.js") ?>
 </head>
 <body>
 <div id="mycontents">
@@ -26,12 +26,9 @@ include('../../inc/header.php');
     <?= flash_message() ?>
     <h2>トレ出欠確認</h2>
     <div class=form_content>
-      <input type="number" id="year" value="<?=  h(date("Y", strtotime($filter_date))) ?>">年
-      <input type="number" id="month" value="<?= h(date("n", strtotime($filter_date))) ?>">月
-      <input type="number" id="day" value="<?= h(date("j", strtotime($filter_date))) ?>">日
-      <a href="javascript:void(0)" id="move_date">以降のみ表示</a>
+      <input type="date" name="filter_date" class="filter_date" value="<?= $filter_date ?>">以降のみ表示
     </div>
-    <p class="output_excel"><a href="excel.php<?= isset($_GET['date']) ? '?date='.h($_GET['date']) : '' ?>">&gt;&gt;エクセル出力</a></p>
+    <p class="output_excel"><a href="excel.php<?= isset($_GET['filter_date']) ? '?filter_date='.h($_GET['filter_date']) : '' ?>">&gt;&gt;エクセル出力</a></p>
     <div id="table_wrap">
       <table>
         <thead>
@@ -71,6 +68,6 @@ foreach($members as $member){
   </div>
 </div>
 <?= readJs("../../../js/jquery-1.11.3.min.js") ?>
-<?= readJs("js/date.js") ?>
+<?= readJs("../../js/filter_date.js") ?>
 </body>
 </html>

@@ -3,7 +3,7 @@ require_once('../../lib/lib_init.php');
 require_once('lib/lib_misc.php');
 function index_init(){
   global $pdo, $teams, $team_members, $events, $event, $disagreement;
-  $sql = "SELECT * FROM events WHERE sophomore = 1 AND questionnaire = 1 ORDER BY date DESC";
+  $sql = "SELECT * FROM events WHERE grade = ".MANAGER_GRADE." AND sophomore = 1 AND questionnaire = 1 ORDER BY date DESC";
   $events = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   if(isset($_GET['event_id'])){
     $sql = "SELECT short_name FROM events WHERE sophomore = 1 AND id = {$_GET['event_id']}";

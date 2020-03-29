@@ -150,7 +150,8 @@ function member_init(){
   global $pdo, $member_table, $member_image, $grades, $manager;
   $member_table = "members_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
   $member_image = "member_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
-  $manager = $_GET['ver'];
+  $grade_type = isset($_GET['grade']) ? $_GET['grade'] : '';
+  $manager = isset($_GET['ver']) ? $_GET['ver'] : '';
   $oldest = $pdo->query("SELECT grade FROM grades WHERE view = 1 ORDER BY grade ASC")->fetch(PDO::FETCH_ASSOC)['grade'];
   $sql = "SHOW TABLES LIKE '" . $member_table . "'";
   if(!$pdo->query($sql)->fetch(PDO::FETCH_ASSOC)){
@@ -158,15 +159,15 @@ function member_init(){
     $member_image = "member";
     $manager = MANAGER_GRADE;
   }
-  if($_GET['grade'] == 'b1'){
+  if($grade_type == 'b1'){
     $grades[] = $manager + 2;
-  }else if($_GET['grade'] == 'b2'){
+  }else if($grade_type == 'b2'){
     $grades[] = $manager + 1;
-  }else if($_GET['grade'] == 'b3'){
+  }else if($grade_type == 'b3'){
     $grades[] = $manager;
-  }else if($_GET['grade'] == 'b4'){
+  }else if($grade_type == 'b4'){
     $grades[] = $manager - 1;
-  }else if($_GET['grade'] == 'm'){
+  }else if($grade_type == 'm'){
     for($i=($manager-2); $i>=$oldest; $i--){
       $grades[] = $i;
     }

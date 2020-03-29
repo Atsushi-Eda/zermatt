@@ -11,6 +11,7 @@ index_init();
   <title>企画MVP</title>
   <?= readCss("../../../../css/reset.css") ?>
   <?= readCss("../../../css/for_members.css") ?>
+  <?= readCss("../../../css/form.css") ?>
 </head>
 <body>
 <?php
@@ -22,6 +23,9 @@ include('../../../inc/header.php');
     </div>
     <?= flash_message() ?>
     <h2>企画MVP</h2>
+    <div class="form_content">
+      <input type="date" name="filter_date" class="filter_date" value="<?= $filter_date ?>">以降を集計
+    </div>
     <p style="text-align:right;">MAX:<?= ($max['cnt']) ?></p>
     <table>
       <tr>
@@ -47,5 +51,7 @@ foreach($counts as $key => $count){
 ?>
     </table>
   </div>
+  <?= readJs("../../../../js/jquery-1.11.3.min.js") ?>
+  <?= readJs("../../../js/filter_date.js") ?>
 </body>
 </html>

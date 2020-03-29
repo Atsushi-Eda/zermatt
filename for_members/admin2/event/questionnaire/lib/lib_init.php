@@ -192,7 +192,7 @@ function handson_init(){
   global $pdo, $rowHeaders, $contents, $columns;
   $sql = "SELECT id, name FROM members WHERE view = 1 ORDER BY grade ASC, `order` ASC";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  $sql = "SELECT * FROM events WHERE questionnaire = 1 AND sophomore = 1 ORDER BY date DESC";
+  $sql = "SELECT * FROM events WHERE questionnaire = 1 AND sophomore = 1 AND grade = ".MANAGER_GRADE." ORDER BY date DESC";
   $events = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   foreach($events as $event){
     $columns[] = array(

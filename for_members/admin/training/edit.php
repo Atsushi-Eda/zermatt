@@ -12,7 +12,6 @@ edit_init();
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
   <?= readCss("../../css/form.css") ?>
-  <?= readCss("css/date.css") ?>
   <?= readCss("css/edit.css") ?>
 </head>
 <body>
@@ -25,12 +24,9 @@ include('../../inc/header.php');
       <a href="../../">TOP</a> > <a href="../">管理ページTOP</a> > <a href="./">トレ管理</a> > トレ出欠登録
     </div>
     <?= flash_message() ?>
-    <h2><?= h(date("Y/n/j", strtotime($date))) ?>(<?= h($weekjp[date('w', strtotime($date))]) ?>)トレ出欠登録</h2>
+    <h2><?= h(date("Y/n/j", strtotime($filter_date))) ?>(<?= h($weekjp[date('w', strtotime($filter_date))]) ?>)トレ出欠登録</h2>
     <div class=form_content>
-      <input type="number" id="year" value="<?= h(date("Y", strtotime($date))) ?>">年
-      <input type="number" id="month" value="<?= h(date("n", strtotime($date))) ?>">月
-      <input type="number" id="day" value="<?= h(date("j", strtotime($date))) ?>">日
-      <a href="javascript:void(0)" id="move_date">へ移動</a>
+      <input type="date" name="filter_date" class="filter_date" value="<?= $filter_date ?>">へ移動
     </div>
 <?php
 foreach($grades as $grade){
@@ -62,10 +58,10 @@ foreach($grades as $grade){
   </div>
 </div>
 <?= readJs("../../../js/jquery-1.11.3.min.js") ?>
-<?= readJs("js/date.js") ?>
+<?= readJs("../../js/filter_date.js") ?>
 <script>
 $(function(){
-  var date = '<?= h($date) ?>';
+  var date = '<?= h($filter_date) ?>';
   $(".member input").change(function(){
     var id = $(this).val();
     var state = $(this).prop("checked");
