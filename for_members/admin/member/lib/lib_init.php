@@ -2,7 +2,7 @@
 require_once('../lib/lib_init.php');
 function index_init(){
   global $pdo, $members;
-  $sql = "SELECT * FROM members WHERE view = true";
+  $sql = "SELECT * FROM members WHERE view = 1";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 function edit_init(){
@@ -113,8 +113,9 @@ function backup_init(){
     if(!file_exists($backup_dir)){
       mkdir($backup_dir);
     }
-    foreach(scandir($origin_dir) as $file){
-      if($file=="." || $file==".."){
+    foreach($pdo->query("SELECT id FROM members WHERE view = 1")->fetchAll(PDO::FETCH_ASSOC) as $id){
+      $file = $id['id'].'.jpg';
+      if(!file_exists($origin_dir.$file)){
         continue;
       }
       copy($origin_dir.$file, $backup_dir.$file);
@@ -127,6 +128,6 @@ function backup_check_init(){
   global $pdo, $members, $grade, $dir;
   $grade = $_GET['grade'];
   $dir = '../../../img/member_'.$grade.'/';
-  $sql = "SELECT * FROM members_".$grade." WHERE view = true";
+  $sql = "SELECT * FROM members_".$grade." WHERE view = 1";
   $members = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
