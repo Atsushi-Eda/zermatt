@@ -8,7 +8,7 @@ video_init();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#003aff">
-  <title>新勧ビデオ変更</title>
+  <title>新歓ビデオ変更</title>
   <?= readCss("../../../../css/reset.css") ?>
   <?= readCss("../../../css/validationEngine.jquery.css") ?>
   <?= readCss("../../../css/for_members.css") ?>
@@ -21,10 +21,10 @@ include('../../../inc/header.php');
 ?>
   <div id="maincontents">
     <div id="pankuzu">
-      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">トップページ管理</a> > <a href="./">サークル紹介管理</a> > 新勧ビデオ変更
+      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">トップページ管理</a> > <a href="./">サークル紹介管理</a> > 新歓ビデオ変更
     </div>
     <?= flash_message() ?>
-    <h2>新勧ビデオ変更</h2>
+    <h2>新歓ビデオ変更</h2>
     <form id="form" method="post" action="video.php" autocomplete="off">
       <div class="form_content required">
         <p>URL</p>

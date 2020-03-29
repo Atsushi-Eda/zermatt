@@ -26,7 +26,7 @@ include('../../../inc/header.php');
     <ul class="lists">
       <li><a href="text.php">紹介文変更</a></li>
       <li><a href="image.php">紹介写真変更</a></li>
-      <li><a href="video.php">新勧ビデオ</a></li>
+      <li><a href="video.php">新歓ビデオ</a></li>
     </ul>
   </div>
 </div>
