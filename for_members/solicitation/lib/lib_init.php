@@ -1,16 +1,16 @@
 <?php
 function index_init(){
   global $pdo, $guests, $schedules, $cnt, $cnt_male, $cnt_female;
-  $sql = "SELECT * FROM solicitation_guests WHERE deleted = false AND member_id = {$_SESSION['user']['id']} ORDER BY update_time DESC";
+  $sql = "SELECT g.id, g.name, g.gender, s.date, s.AMPM, s.place, g.meeting_place, g.school, g.note FROM solicitation_guests AS g LEFT JOIN solicitation_schedules AS s ON g.schedule_id = s.id WHERE s.deleted = 0 AND g.deleted = 0 AND g.member_id = {$_SESSION['user']['id']} ORDER BY g.update_time DESC";
   $guests = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-  $sql = "SELECT * FROM solicitation_schedules ORDER BY date ASC, AMPM ASC";
+  $sql = "SELECT * FROM solicitation_schedules WHERE deleted = 0 ORDER BY date ASC, AMPM ASC";
   $schedules_tmp = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   foreach($schedules_tmp as $schedule_tmp){
     $schedules[$schedule_tmp['id']] = $schedule_tmp;
     $schedules[$schedule_tmp['id']]['capacity'] = $schedule_tmp['male'] + $schedule_tmp['female'];
   }
   foreach($schedules as $schedule_id => $schedule){
-    $sql = "SELECT count(id) AS cnt FROM solicitation_guests WHERE deleted = false AND schedule_id = {$schedule_id} AND gender = :gender";
+    $sql = "SELECT count(id) AS cnt FROM solicitation_guests WHERE deleted = 0 AND schedule_id = {$schedule_id} AND gender = :gender";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':gender'=>'male'));
     $tmp = $sth->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@ function form_init(){
   global $pdo;
   if(!isset($_POST['name'])){
     global $schedule, $gender;
-    $sql = "SELECT * FROM solicitation_schedules WHERE id = :id";
+    $sql = "SELECT * FROM solicitation_schedules WHERE id = :id AND deleted = 0";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':id'=>$_GET['schedule']));
     $schedule = $sth->fetch(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@ function form_init(){
       exit;
     }
   }else{
-    $sql = "SELECT count(id) AS cnt FROM solicitation_guests WHERE deleted = false AND schedule_id = :schedule_id AND gender = :gender";
+    $sql = "SELECT count(id) AS cnt FROM solicitation_guests WHERE deleted = 0 AND schedule_id = :schedule_id AND gender = :gender";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':schedule_id'=>$_POST['schedule_id'], ':gender'=>$_POST['gender']));
     $cnt = $sth->fetch(PDO::FETCH_ASSOC);
@@ -68,11 +68,11 @@ function edit_init(){
   global $pdo;
   if(!isset($_POST['name'])){
     global $schedule, $guest, $gender;
-    $sql = "SELECT * FROM solicitation_guests WHERE deleted = false AND id = :id AND member_id = :member_id";
+    $sql = "SELECT * FROM solicitation_guests WHERE deleted = 0 AND id = :id AND member_id = :member_id";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':id'=>$_GET['id'], ':member_id'=>$_SESSION['user']['id']));
     $guest = $sth->fetch(PDO::FETCH_ASSOC);
-    $sql = "SELECT * FROM solicitation_schedules WHERE id = :id";
+    $sql = "SELECT * FROM solicitation_schedules WHERE id = :id AND deleted = 0";
     $sth = $pdo->prepare($sql);
     $sth->execute(array(':id'=>$guest['schedule_id']));
     $schedule = $sth->fetch(PDO::FETCH_ASSOC);

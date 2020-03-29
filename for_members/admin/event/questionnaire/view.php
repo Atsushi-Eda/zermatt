@@ -1,4 +1,5 @@
 <?php
+set_time_limit(300);
 require_once('../../../lib/library.php');
 view_init();
 ?>

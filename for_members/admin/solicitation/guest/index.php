@@ -1,6 +1,6 @@
 <?php
-require_once('../../lib/library.php');
-view_init();
+require_once('../../../lib/library.php');
+index_init();
 $schedule_id = isset($_GET['schedule_id']) ? $_GET['schedule_id'] : "";
 ?>
 <!DOCTYPE html>
@@ -10,24 +10,24 @@ $schedule_id = isset($_GET['schedule_id']) ? $_GET['schedule_id'] : "";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#003aff">
   <title>新歓コンパ参加者確認</title>
-  <?= readCss("../../../css/reset.css") ?>
-  <?= readCss("../../css/for_members.css") ?>
-  <?= readCss("../../css/form.css") ?>
-  <?= readCss("css/view.css") ?>
+  <?= readCss("../../../../css/reset.css") ?>
+  <?= readCss("../../../css/for_members.css") ?>
+  <?= readCss("../../../css/form.css") ?>
+  <?= readCss("css/index.css") ?>
 </head>
 <body>
 <div id="mycontents">
 <?php
-include('../../inc/header.php');
+include('../../../inc/header.php');
 ?>
   <div id="maincontents">
     <div id="pankuzu">
-      <a href="../../">TOP</a> > <a href="../">管理ページTOP</a> > <a href="./">新歓管理</a> > コンパ参加者確認
+      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">新歓管理</a> > コンパ参加者確認
     </div>
     <?= flash_message() ?>
     <h2>新歓コンパ参加者確認</h2>
     <div id="search">
-      <form action="view.php" method="GET">
+      <form action="./" method="GET">
         <div class="form_content">
           <select id="schedule_id" name="schedule_id">
             <option value="0">(コンパ)全て</option>
@@ -64,7 +64,7 @@ if(isset($_GET['schedule_id'])){
 if(isset($guests)){
 ?>
     <div id="result">
-      <p style="padding-bottom:10px;"><a href="output.php?schedule_id=<?= $_GET['schedule_id'] ?>&meeting_place=<?= $_GET['meeting_place'] ?>">>>エクセル出力</a></p>
+      <p style="padding-bottom:10px;"><a href="excel.php?schedule_id=<?= isset($_GET['schedule_id']) ? h($_GET['schedule_id']) : 0 ?>&meeting_place=<?= isset($_GET['meeting_place']) ? h($_GET['meeting_place']) : 0 ?>">&gt;&gt;エクセル出力</a></p>
       <p id="count"><span></span>/<?= h(count($guests)) ?></p>
       <div id="table_wrap">
         <table>
@@ -114,18 +114,19 @@ if(isset($guests)){
 ?>
   </div>
 </div>
-<?= readJs("../../../js/jquery-1.11.3.min.js") ?>
+<?= readJs("../../../../js/jquery-1.11.3.min.js") ?>
 <script>
 $(function(){
-  var meeting_places = new Array();
+  var meeting_places = [];
+  meeting_places[0] = [];
 <?php
 foreach($schedules as $schedule){
 ?>
-    meeting_places['<?= h($schedule['id']) ?>'] = new Array();
+  meeting_places['<?= h($schedule['id']) ?>'] = [];
 <?php
   foreach(array_merge(explode(',',$schedule['meeting_place']),array('その他')) as $key => $meeting_place){
 ?>
-    meeting_places['<?= h($schedule['id']) ?>'][<?= h($key) ?>] = "<?= h($meeting_place) ?>";
+  meeting_places['<?= h($schedule['id']) ?>'][<?= h($key) ?>] = "<?= h($meeting_place) ?>";
 <?php
   }
 }

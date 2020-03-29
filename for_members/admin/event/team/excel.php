@@ -27,7 +27,7 @@ foreach($team_members as $team => $team_members2){
   }
 }
 header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment;filename='".$event['short_name']."班分け.xlsx'");
+header("Content-Disposition: attachment;filename=".$event['short_name']."班分け.xlsx");
 header("Cache-Control: max-age=0");
 $writer = PHPExcel_IOFactory::createWriter($excel, "Excel2007");
 $writer->save("php://output");

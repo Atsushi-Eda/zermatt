@@ -23,9 +23,9 @@ include('../../inc/header.php');
     <?= flash_message() ?>
     <h2>新歓管理</h2>
     <ul class="lists">
-      <li><a href="view.php">コンパ参加者確認</a></li>
-      <li><a href="edit.php">人数調整</a></li>
-      
+      <li><a href="guest/">コンパ参加者確認</a></li>
+      <li><a href="schedule/edit_number.php">人数調整</a></li>
+      <li><a href="schedule/">スケジュール管理</a></li>
     </ul>
   </div>
 </div>

@@ -9,6 +9,8 @@
 }
 .form_content input[type="text"],
 .form_content input[type="number"],
+.form_content input[type="date"],
+.form_content input[type="time"],
 .form_content textarea{
   font-size: 120%;
   padding: 5px;
@@ -24,8 +26,14 @@
 .form_content input[type="number"]{
   width: 100px;
 }
+.form_content input[type="date"],
+.form_content input[type="time"]{
+  width: 200px;
+}
 .form_content input[type="text"]:focus,
 .form_content input[type="number"]:focus,
+.form_content input[type="date"]:focus,
+.form_content input[type="time"]:focus,
 .form_content textarea:focus{
   border-color: #003aff;
   box-shadow: 0 2px 5px rgba(0, 58, 255, .5);

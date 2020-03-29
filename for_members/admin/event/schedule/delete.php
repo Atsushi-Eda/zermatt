@@ -3,7 +3,7 @@ require_once('../../../lib/library.php');
 if(deleteTable('events', [
   'id' => $_GET['id'],
 ])){
-  $_SESSION['flash_message'] = 'アルバムを削除しました。';
+  $_SESSION['flash_message'] = '企画を削除しました。';
 }else{
   $_SESSION['flash_message'] = '削除に失敗しました。';
 }

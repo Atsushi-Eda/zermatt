@@ -1,8 +1,8 @@
 <?php
-require_once('../../lib/library.php');
-view_init();
-require_once('../../../Classes/PHPExcel.php');
-require_once('../../../Classes/PHPExcel/IOFactory.php');
+require_once('../../../lib/library.php');
+index_init();
+require_once('../../../../Classes/PHPExcel.php');
+require_once('../../../../Classes/PHPExcel/IOFactory.php');
 $excel = new PHPExcel();
 $excel->setActiveSheetIndex(0);
 $sheet = $excel->getActiveSheet();
@@ -32,7 +32,7 @@ $sheet->setCellValue('J'.($key+2), $guest['m_name']);
 $sheet->setCellValue('K'.($key+2), $guest['update_time']);
 }
 header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment;filename='solicitation.xlsx'");
+header("Content-Disposition: attachment;filename=solicitation.xlsx");
 header("Cache-Control: max-age=0");
 $writer = PHPExcel_IOFactory::createWriter($excel, "Excel2007");
 $writer->save("php://output");

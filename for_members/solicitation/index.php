@@ -42,7 +42,7 @@ foreach($guests as $guest){
           <tr>
             <td><?= h($guest['name']) ?></td>
             <td><?= h($gender[$guest['gender']]) ?></td>
-            <td><?= h(date('n/j', strtotime($schedules[$guest['schedule_id']]['date']))) ?>[<?= h($schedules[$guest['schedule_id']]['AMPM']) ?>] <?= h($schedules[$guest['schedule_id']]['place']) ?></td>
+            <td><?= h(date('n/j', strtotime($guest['date']))) ?>[<?= h($guest['AMPM']) ?>] <?= h($guest['place']) ?></td>
             <td><?= h($guest['school']) ?></td>
             <td><?= h($guest['meeting_place']) ?></td>
             <td>

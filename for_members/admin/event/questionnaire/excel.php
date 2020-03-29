@@ -25,7 +25,7 @@ foreach($grade_names as $grade_key => $grade_name){
 }
 $filename = rawurlencode($event['short_name']."参加者リスト");
 header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename*=UTF-8''$filename.xlsx");
+header("Content-Disposition: attachment;filename=$filename.xlsx");
 header("Cache-Control: max-age=0");
 $writer = PHPExcel_IOFactory::createWriter($excel, "Excel2007");
 $writer->save("php://output");

@@ -1,6 +1,6 @@
 <?php
-require_once('../../lib/library.php');
-edit_init();
+require_once('../../../lib/library.php');
+edit_number_init();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -9,19 +9,19 @@ edit_init();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#003aff">
   <title>人数調整</title>
-  <?= readCss("../../../css/reset.css") ?>
-  <?= readCss("../../css/for_members.css") ?>
-  <?= readCss("../../css/form.css") ?>
-  <?= readCss("css/edit.css") ?>
+  <?= readCss("../../../../css/reset.css") ?>
+  <?= readCss("../../../css/for_members.css") ?>
+  <?= readCss("../../../css/form.css") ?>
+  <?= readCss("css/edit_number.css") ?>
 </head>
 <body>
 <div id="mycontents">
 <?php
-include('../../inc/header.php');
+include('../../../inc/header.php');
 ?>
   <div id="maincontents">
     <div id="pankuzu">
-      <a href="../../">TOP</a> > <a href="../">管理ページTOP</a> > <a href="./">新歓管理</a> > 人数調整
+      <a href="../../../">TOP</a> > <a href="../../">管理ページTOP</a> > <a href="../">新歓管理</a> > 人数調整
     </div>
     <?= flash_message() ?>
     <h2>人数調整</h2>
@@ -30,7 +30,7 @@ include('../../inc/header.php');
 foreach($schedules as $schedule_id => $schedule){
 ?>
         <div class="schedule">
-          <form action="edit.php" method="POST">
+          <form action="edit_number.php" method="POST">
             <p class="schedule_title"><?= h(date('n月j日', strtotime($schedule['date']))) ?>[<?= h($schedule['AMPM']) ?>] <?= h($schedule['place']) ?></p>
             <input type="hidden" name="id" value="<?= $schedule_id ?>">
             <div class="form_content">
