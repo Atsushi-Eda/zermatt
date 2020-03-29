@@ -147,10 +147,11 @@ function solicitation_init(){
   }
 }
 function member_init(){
-  global $pdo, $member_table, $member_image, $grades, $oldest, $manager;
+  global $pdo, $member_table, $member_image, $grades, $manager;
   $member_table = "members_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
   $member_image = "member_" . (isset($_GET['ver']) ? $_GET['ver'] : '');
   $manager = $_GET['ver'];
+  $oldest = $pdo->query("SELECT grade FROM grades WHERE view = 1 ORDER BY grade ASC")->fetch(PDO::FETCH_ASSOC)['grade'];
   $sql = "SHOW TABLES LIKE '" . $member_table . "'";
   if(!$pdo->query($sql)->fetch(PDO::FETCH_ASSOC)){
     $member_table = "members";
