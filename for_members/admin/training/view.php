@@ -12,7 +12,7 @@ view_init();
   <?= readCss("../../../css/reset.css") ?>
   <?= readCss("../../css/for_members.css") ?>
   <?= readCss("../../css/form.css") ?>
-  <?= readJs("../../js/filter_date.js") ?>
+  <?= readJs("css/view.css") ?>
 </head>
 <body>
 <div id="mycontents">
